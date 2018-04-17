@@ -1,0 +1,145 @@
+#gameheader{
+    background-image: url("images/backgroundwall.png");
+    background-size: cover;
+    height:40px;
+}
+
+
+#funnyimg{
+
+    width: 40px;
+    height: auto;
+}
+
+#logoutimg {
+    width: 30px;
+    height: auto;
+}
+
+
+#logoutdiv {
+    width: 30px;
+    height: auto;
+    margin-top: 5px ;
+    padding-right: 15px;
+    float: right;
+}
+
+#titlediv{
+    padding-left: 15px ;
+    width: 40px;
+    float: left;
+}
+
+#statisticslink {
+    font-family: Impact;
+    font-size: 16px;
+    color: #415f7c;
+    text-decoration: none;
+}
+
+#statisticslink:hover{
+     color: #58B325;
+ }
+
+#statisticsdiv {
+    width: 30px;
+    height: auto;
+    margin-top: 10px ;
+    padding-right: 100px;
+    float: right;
+}
+
+#teamslink:hover{
+    color: #58B325;
+}
+
+#teamsdiv {
+    width: 30px;
+    height: auto;
+    margin-top: 10px ;
+    padding-right: 30px;
+    float: right;
+}
+
+#teamslink {
+    font-family: Impact;
+    font-size: 16px;
+    color: #415f7c;
+    text-decoration: none;
+}
+
+#gamediv {
+    width: 30px;
+    height: auto;
+    margin-top: 10px ;
+    padding-right: 20px;
+    float: right;
+}
+
+#gamelink {
+    font-family: Impact;
+    font-size: 16px;
+    color: #415f7c;
+    text-decoration: none;
+}
+
+#gamelink:hover{
+    color: #58B325;
+}
+
+
+#logoutdiv:hover{
+    cursor: pointer;
+}
+
+#score {
+    padding-top: 10px;
+    width: 100px;
+    height: auto;
+}
+
+
+#scorediv {
+    padding-left: 15px ;
+    width: 100px;
+    float: left;
+    font-size: 16px;
+    color: #AF0000;
+    font-family: Impact;
+    line-height: 1.4;
+}
+
+#usernamedisplay {
+    padding-top: 10px;
+    width: 60px;
+    height: auto;
+}
+
+
+#usernamediv {
+    padding-left: 50px ;
+    width: 60px;
+    float: left;
+    font-size: 16px;
+    color: #82683B;
+    font-family: Impact;
+    line-height: 1.4;
+}
+
+#team {
+    padding-top: 10px;
+    width: 200px;
+    height: auto;
+}
+
+
+#teamdiv {
+    padding-left: 0px ;
+    width: 150px;
+    float: left;
+    font-size: 16px;
+    color: #333;
+    font-family: Impact;
+    line-height: 1.4;
+}

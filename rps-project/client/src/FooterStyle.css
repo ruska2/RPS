@@ -1,0 +1,14 @@
+footer{
+    margin-top: 250px;
+    background: #202830;
+    /*background: #FFFFFF;*/
+    height: 30px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#footerdiv{
+    margin: auto;
+}

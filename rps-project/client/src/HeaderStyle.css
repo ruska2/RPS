@@ -1,0 +1,9 @@
+#header{
+    background-image: url("images/backgroundwall.png");
+    background-size: cover;
+}
+
+#titleimg{
+    text-align: center;
+    margin: auto;
+}

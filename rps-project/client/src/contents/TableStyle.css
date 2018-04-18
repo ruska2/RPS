@@ -1,0 +1,42 @@
+.cell{
+    padding: 6px 12px;
+    display: table-cell;
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #3b3b3b;
+    margin: auto;
+}
+
+.row{
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #3b3b3b;
+    display: table-row;
+    margin: auto;
+}
+
+.table{
+    font-family: "Helvetica Neue", Helvetica, Arial;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #3b3b3b;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    display: table;
+    margin: 0 0 40px 0;
+    width: 100%;
+}
+
+.cell.header {
+    font-weight: 900;
+    color: #ffffff;
+}
+
+#tablediv{
+    text-align: center;
+    margin: auto;
+}

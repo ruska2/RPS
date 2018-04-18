@@ -220,17 +220,26 @@ async function getTopUsers(){
 }
 
 async function getLastMatches(username){
-    let sql = "SELECT \"user\".name,\"user\".score, team.name as team_name from \"user\" left join team on team.team_id = \"user\".team_id ORDER BY \"user\".score DESC";
+    let sql = "SELECT wu.name as winner, lu.name as loser, gam.score as score, time from game as gam join \"user\" as wu on winner_id = wu.user_id join \"user\" as lu on loser_id = lu.user_id "+
+    "WHERE gam.winner_id = (SELECT user_id from \"user\" WHERE \"user\".name = '"+ username +"') or gam.loser_id =(SELECT user_id from \"user\" WHERE \"user\".name = '"+ username +"') " +
+        "ORDER BY time DESC LIMIT 10";
+    console.log(sql);
+    let res = await pool.query(sql);
+    return res;
+}
+
+async function getTopTeams(){
+    let sql = "Select name,score from team ORDER BY score LIMIT 10";
     let res = await pool.query(sql);
     return res;
 }
 
 
-
 async function handleGetStatistics(req,res) {
     const username = req.body.userData.username;
     let resultTopTen = await getTopUsers();
-   // let resultLastTen = await getLastMatches(username);
-    res.status(200).json({topten: resultTopTen.rows/*, lastten: resultLastTen.rows*/});
+    let resultLastTen = await getLastMatches(username);
+    let resultTopTeams = await getTopTeams();
+    res.status(200).json({topten: resultTopTen.rows, lastten: resultLastTen.rows, topteams: resultTopTeams.rows});
 }
 

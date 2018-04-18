@@ -15,6 +15,7 @@ class Statistics extends Component{
             team: props.team,
             topTen:[],
             lastTenMatches:[],
+            topTeams:[]
         }
     };
 
@@ -27,8 +28,8 @@ class Statistics extends Component{
             <GameHeader username={this.state.username} score={this.state.score} team={this.state.team}/>
             <div id="wrapper">
                 <Table data={this.state.topTen} title='Top 10 players' type={1}/>
-                <Table data={this.state.topTen} title='Last 10 matches' type={2}/>
-                <Table data={this.state.topTen} title='Top 10 teams' type={3}/>
+                <Table data={this.state.lastTenMatches} title='Last 10 matches' type={2}/>
+                <Table data={this.state.topTeams} title='Top 10 teams' type={3}/>
             </div>
         </div>
     }
@@ -36,8 +37,8 @@ class Statistics extends Component{
     getStatistics = (userData) => {
         return axios.post('/getstatistics',{userData}).then(
             (response) => {
-                this.setState({topTen: response.data.topten});
-                console.log(this.state.topTen);
+                this.setState({topTen: response.data.topten, lastTenMatches: response.data.lastten, topTeams: response.data.topteams});
+                console.log(this.state.topTeams);
             })
             .catch ((error) => {
                 console.log(error)

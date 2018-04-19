@@ -78,6 +78,12 @@ module.exports ={
                     return rows[key].pos;
                 }
             }
+        },
+
+    deleteUserTeam:
+        async function deleteUserTeam(username){
+            let sql = "UPDATE \"user\" SET team_id = null WHERE name = '"+ username +"'";
+            await pool.query(sql);
         }
 
 };

@@ -41,5 +41,8 @@ app.post('/getstatistics',(req,res) => {
     return handlers.handleGetStatistics(req,res);
 });
 
+app.post('/deleteuserteam', (req,res) =>{
+   return handlers.handleDeleteTeam(req);
+});
 
 

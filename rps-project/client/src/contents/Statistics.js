@@ -12,8 +12,6 @@ class Statistics extends Component{
         super(props);
         this.state = {
             username: props.username,
-            score: props.score,
-            team: props.team,
             topTen:[],
             lastTenMatches:[],
             topTeams:[],
@@ -29,7 +27,7 @@ class Statistics extends Component{
 
     render(){
         return <div>
-            <GameHeader username={this.state.username} score={this.state.score} team={this.state.team}/>
+            <GameHeader username={this.state.username}/>
             <div id="wrapper">
                 <h3 id='pos'>
                     Overall position: {this.state.position}.<br/>

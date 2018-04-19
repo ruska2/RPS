@@ -24,7 +24,7 @@
 
 ul {
     list-style-type: none;
-
+    border: 2px solid #e7e7e7;
     padding: 0;
     overflow: hidden;
     box-sizing: inherit;
@@ -36,29 +36,23 @@ ul {
 
 li div {
     display: block;
-    color: #666;
+    color: #000000;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-weight: 500;
     background-color: #f3f3f3;
-    border: 2px solid #e7e7e7;
 }
 
 li {
     display: inline;
     float: left;
-    padding-right: 50px;
-
 }
 
 li div:hover {
     color: white;
     background-color: #008CBA;
-}
-
-.active {
-    background-color: #4CAF50;
+    cursor: pointer;
 }
 
 li:last-child {
@@ -70,4 +64,68 @@ li:last-child {
     width: 100%;
     margin: auto;
     text-align: center;
+}
+
+#searchimg{
+    width: 15px;
+    height: auto;
+}
+
+#actialandbarholder{
+    width: 700px;
+    margin: auto;
+}
+
+.alert {
+    padding: 20px;
+    background-color: #f44336; /* Red */
+    color: white;
+    margin-bottom: 15px;
+    border-radius: 3px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}
+
+#leavingdiv{
+    font-family: Bookman;
+    font-size: 22px;
+    font-weight: 800;
+    text-align: center;
+    display: block;
+    color: #FF0000;
+}
+
+#leaving{
+    color: #000000;
+    text-align: center;
+    padding: 4px 12px;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    background: #2e6da4;
+    border-radius: 5px;
+    border: 1px solid #444;
+    color: white;
+}
+
+#leaving:hover{
+    cursor: pointer;
+    background: red;
 }

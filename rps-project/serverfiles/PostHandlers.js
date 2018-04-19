@@ -65,7 +65,11 @@ module.exports = {
         }catch (e) {
             console.log(e);
         }
+    },
 
-
+    handleDeleteTeam:
+    async function handleDeleteTeam(req){
+        const username  = req.body.name;
+        database.deleteUserTeam(username);
     }
 };

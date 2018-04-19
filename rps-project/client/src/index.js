@@ -25,21 +25,3 @@ axios.post('/getlogged',{msg: 'getlogged'}).then(
     .catch ((error) => {
         console.log(error)
     });
-
-/*fetch('/getlogged',{
-    credentials: 'same-origin',
-
-}).then(
-    (response) => {
-        if(response.data.logged === 'not'){
-            ReactDOM.render(<App logged='false'/>, document.getElementById('root'));
-        }else{
-            ReactDOM.render(<App logged={response.data.logged} score={response.data.score}/>, document.getElementById('root'));
-        }
-    })
-    .catch ((error) => {
-        console.log(error)
-    });
-*/
-
-

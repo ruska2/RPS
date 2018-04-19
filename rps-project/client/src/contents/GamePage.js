@@ -9,13 +9,11 @@ class GamePage extends Component{
         super(props);
         this.state = {
             username: props.username,
-            score: props.score,
-            team: props.team
         };
     }
 
     render(){
-        return  <GameHeader username={this.state.username} score={this.state.score} team={this.state.team}/>
+        return  <GameHeader username={this.state.username}/>
     }
 }
 

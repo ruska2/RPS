@@ -15,8 +15,6 @@ class GameHeader extends Component{
         super(props);
         this.state = {
             username: props.username,
-            score: props.score,
-            team: props.team
         };
     }
 
@@ -31,10 +29,10 @@ class GameHeader extends Component{
                         <div id='usernamedisplay'>{this.state.username}</div>
                     </div>
                     <div id='scorediv'>
-                        <div id='score'>SCORE: {this.state.score}</div>
+                        <div id='score'>SCORE: {Login.staticProperty.score}</div>
                     </div>
                     <div id='teamdiv'>
-                        <div id='team'>{this.state.team ? "TEAM: " : null} {this.state.team}</div>
+                        <div id='team'>{Login.staticProperty.team ? "TEAM: " : null} {Login.staticProperty.team}</div>
                     </div>
                     <div id="logoutdiv" onClick={this.logoutClicked}>
                         <img id='logoutimg'  src={LogoutImage} alt='logout-img'/>

@@ -33,7 +33,7 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <div className="App">
-                        {!logged ? <Content logged={this.state.logged}/> :/* redirect to gamepage*/ <GameContent username={this.state.logged} score={this.state.score} team={this.state.team} /> }
+                        <div id="contentorgameholder">{!logged ? <Content logged={this.state.logged}/> :/* redirect to gamepage*/ <GameContent username={this.state.logged} score={this.state.score} team={this.state.team} /> }</div>
                       <Footer/>
                     </div>
                 </Router>

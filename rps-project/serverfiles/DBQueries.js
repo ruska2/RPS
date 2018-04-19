@@ -19,12 +19,12 @@ module.exports ={
     getLastMatches: async function getLastMatches(username){
         let sql = "SELECT wu.name as winner, lu.name as loser, gam.score as score, time from game as gam join \"user\" as wu on winner_id = wu.user_id join \"user\" as lu on loser_id = lu.user_id "+
             "WHERE gam.winner_id = (SELECT user_id from \"user\" WHERE \"user\".name = '"+ username +"') or gam.loser_id =(SELECT user_id from \"user\" WHERE \"user\".name = '"+ username +"') " +
-            "ORDER BY time DESC LIMIT 10";
+            "ORDER BY time DESC LIMIT 20";
         return await pool.query(sql);
     },
 
     getTopTeams: async function getTopTeams(){
-        let sql = "Select name,score from team ORDER BY score LIMIT 10";
+        let sql = "Select name,score from team ORDER BY score DESC LIMIT 10";
         return  await pool.query(sql);
     },
 
@@ -50,5 +50,34 @@ module.exports ={
             return ''
         }
         return res.rows[0].name;
-    }
+    },
+
+    getUserPosition:
+        async function getUserPosition(username){
+            let sql = "SELECT name,ROW_NUMBER() over(ORDER BY score DESC) as pos  from \"user\" ORDER BY score";
+            let res = (await pool.query(sql)).rows;
+            for(let key in res){
+                if(res[key].name === username){
+                    return res[key].pos;
+                }
+            }
+    },
+
+    getTopTenInTeam:
+        async function getTopTenInTeam(username){
+        let sql = "SELECT name,score,last_team_change as joined from \"user\" WHERE team_id = (SELECT team_id from team WHERE team_id = (SELECT team_id from \"user\" WHERE name = '"+ username +"')) ORDER BY SCORE DESC LIMIT 10"
+        return (await pool.query(sql)).rows;
+    },
+
+    getPositionInTeam:
+        async function getPositionInTeam(username){
+            let sql = "SELECT name,ROW_NUMBER() over(ORDER BY score DESC) as pos from \"user\" WHERE team_id = (SELECT team_id from team WHERE team_id = (SELECT team_id from \"user\" WHERE name = '"+ username +"')) ORDER BY SCORE DESC LIMIT 10"
+            let rows = (await pool.query(sql)).rows;
+            for(let key in rows){
+                if(rows[key].name === username){
+                    return rows[key].pos;
+                }
+            }
+        }
+
 };

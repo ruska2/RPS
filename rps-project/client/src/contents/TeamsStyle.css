@@ -1,0 +1,70 @@
+#actual-team{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 16px;
+    color: #333;
+    font-family: Impact;
+    line-height: 1.4;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+#actual-team-name{
+    float: left;
+    width: 20%;
+    padding-right: 30%;
+    color: #AF0000;
+}
+
+#actual-team-const{
+    float: left;
+    width: 20%;
+    padding-left: 30%;
+}
+
+ul {
+    list-style-type: none;
+    border: 1px solid #e7e7e7;
+    background-color: #f3f3f3;
+    padding: 0;
+    overflow: hidden;
+    box-sizing: inherit;
+    color: #000 !important;
+    display:inline-block;
+    margin: auto;
+    border-radius: 5px
+}
+
+li div {
+    display: block;
+    color: #666;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+li {
+    display: inline;
+    float: left;
+
+}
+
+li div:hover {
+    color: white;
+    background-color: #008CBA;
+}
+
+.active {
+    background-color: #4CAF50;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+#navbar{
+    width: 100%;
+    margin: auto;
+    text-align: center;
+}

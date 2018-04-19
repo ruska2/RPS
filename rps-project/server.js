@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 
 //SESSION
 let session = require('express-session');
-
 app.set('trust proxy', 1); // trust first proxy
 app.use(session({
     secret: 'random_string_goes_here',
@@ -20,8 +19,7 @@ app.use(session({
 }));
 
 
-
-
+//POST HANDLING
 app.post('/login', (req,res) => {
     return handlers.handleLogin(req,res);
 });
@@ -36,12 +34,7 @@ app.post('/getlogged', (req,res) => {
 });
 
 app.post('/remlogged', (req,res) => {
-   const all = req.body;
-   console.log("logout:" + all.username);
-   if(all.username !== undefined){
-      delete req.session.username;
-   }
-   res.status(200).json({user : req.session.username});
+   return handlers.handleLogout(req,res);
 });
 
 app.post('/getstatistics',(req,res) => {

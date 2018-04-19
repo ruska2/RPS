@@ -17,6 +17,16 @@ module.exports = {
         }
     },
 
+    handleLogout:
+    async function handleLogout(req,res){
+        const data = req.body;
+        console.log("logout:" + data.username);
+        if(data.username !== undefined){
+            delete req.session.username;
+        }
+        res.status(200).json({user : req.session.username});
+    },
+
     handleRegister:
     async function handleRegister(req,res){
         const {errors, isValid} = await validator.validateRegsterInput(req.body);
@@ -42,9 +52,20 @@ module.exports = {
     handleGetStatistics:
     async function handleGetStatistics(req,res) {
         const username = req.body.userData.username;
-        let resultTopTen = await database.getTopUsers();
-        let resultLastTen = await database.getLastMatches(username);
-        let resultTopTeams = await database.getTopTeams();
-        res.status(200).json({topten: resultTopTen.rows, lastten: resultLastTen.rows, topteams: resultTopTeams.rows});
+        try{
+            let resultTopTen = await database.getTopUsers();
+            let resultLastTen = await database.getLastMatches(username);
+            let resultTopTeams = await database.getTopTeams();
+            let userPostition = await database.getUserPosition(username);
+            let topTenInTeam = await database.getTopTenInTeam(username);
+            let posInTeam = await  database.getPositionInTeam(username);
+            console.log(topTenInTeam);
+            console.log(posInTeam);
+            res.status(200).json({topten: resultTopTen.rows, lastten: resultLastTen.rows, topteams: resultTopTeams.rows, position: userPostition, topteninteam: topTenInTeam, posinteam: posInTeam});
+        }catch (e) {
+            console.log(e);
+        }
+
+
     }
 };

@@ -22,7 +22,7 @@ class Teams extends Component{
 
             <div id='navbar'>
                 <ul>
-                    <li><div>Left Team</div></li>
+                    <li><div>Leave Team</div></li>
                     <li><div>New Team</div></li>
                     <li><div>Search Team</div></li>
                 </ul>

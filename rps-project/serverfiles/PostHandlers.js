@@ -59,8 +59,6 @@ module.exports = {
             let userPostition = await database.getUserPosition(username);
             let topTenInTeam = await database.getTopTenInTeam(username);
             let posInTeam = await  database.getPositionInTeam(username);
-            console.log(topTenInTeam);
-            console.log(posInTeam);
             res.status(200).json({topten: resultTopTen.rows, lastten: resultLastTen.rows, topteams: resultTopTeams.rows, position: userPostition, topteninteam: topTenInTeam, posinteam: posInTeam});
         }catch (e) {
             console.log(e);
@@ -71,5 +69,25 @@ module.exports = {
     async function handleDeleteTeam(req){
         const username  = req.body.name;
         database.deleteUserTeam(username);
+    },
+
+    handleGetTeamExists:
+    async function handleGetTeamExists(req,res){
+        const teamname = req.body.name;
+        let result = await database.getTeamExists(teamname);
+        if(result){
+            res.status(200).json({succes:true});
+        }
+        else{
+            res.status(200).json({error: "Team already registred!"});
+        }
+    },
+
+    handleAddTeam:
+    async function handleAddTeam(req){
+        const name = req.body.name;
+        const team = req.body.team;
+        const id = (await database.addTeam(team)).rows[0].team_id;
+        await database.updateUserTeam(name,id);
     }
 };

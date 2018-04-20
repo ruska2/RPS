@@ -25,6 +25,9 @@ class App extends Component {
         };
         Login.staticProperty.score = props.score;
         Login.staticProperty.team = props.team;
+        if(this.state.logged !== 'false'){
+            Login.staticProperty.username = props.logged;
+        }
     }
 
     render() {
@@ -34,7 +37,7 @@ class App extends Component {
                 <Router>
                     <div className="App">
                         <div id="contentorgameholder">{!logged ? <Content logged={this.state.logged}/> :/* redirect to gamepage*/ <GameContent username={this.state.logged} score={this.state.score}/> }</div>
-                      <Footer/>
+                        <Footer/>
                     </div>
                 </Router>
             </Provider>

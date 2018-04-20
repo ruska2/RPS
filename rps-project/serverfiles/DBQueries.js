@@ -84,6 +84,25 @@ module.exports ={
         async function deleteUserTeam(username){
             let sql = "UPDATE \"user\" SET team_id = null WHERE name = '"+ username +"'";
             await pool.query(sql);
-        }
+            },
+
+    getTeamExists:
+        async function getTeamExists(username){
+            let sql = "SELECT name from team WHERE name = '"+ username +"'";
+            let res = await  pool.query(sql);
+            return (res).rows.length === 0;
+        },
+
+    addTeam:
+        async function addTeam(team){
+            let sql = "INSERT INTO team (name,score) VALUES('"+ team +"',0) RETURNING team_id";
+            return await pool.query(sql);
+    },
+
+    updateUserTeam:
+        async function updateUserTeam(name,id){
+            let sql = "UPDATE \"user\" SET team_id =" + id + " WHERE name='"+ name +"'";
+            return await pool.query(sql);
+    }
 
 };

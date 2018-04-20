@@ -28,11 +28,12 @@ class LeaveTeam extends Component{
     };
 
     clickLeave = () => {
-        this.setState({team: ''});
         Login.staticProperty.team = '';
         let userData = {name: Login.staticProperty.username};
         axios.post('/deleteuserteam',userData);
         window.location.reload();
+        this.setState({team: ''});
+
     }
 }
 

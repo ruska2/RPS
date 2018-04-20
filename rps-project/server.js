@@ -45,4 +45,10 @@ app.post('/deleteuserteam', (req,res) =>{
    return handlers.handleDeleteTeam(req);
 });
 
+app.post('/getteamexists',(req,res) => {
+   return handlers.handleGetTeamExists(req,res);
+});
 
+app.post('/addteam',(req,res) => {
+    return handlers.handleAddTeam(req,res);
+});

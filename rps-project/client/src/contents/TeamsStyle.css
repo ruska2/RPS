@@ -57,7 +57,7 @@ li div:hover {
 
 li:last-child {
     border-right: none;
-    padding-right: 0px;
+    padding-right: 0;
 }
 
 #navbar{
@@ -111,7 +111,6 @@ li:last-child {
 }
 
 #leaving{
-    color: #000000;
     text-align: center;
     padding: 4px 12px;
     text-decoration: none;
@@ -119,13 +118,19 @@ li:last-child {
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
-    background: #2e6da4;
     border-radius: 5px;
-    border: 1px solid #444;
+    border: 2px solid #e7e7e7;
+    background: #2e6da4;
     color: white;
 }
 
 #leaving:hover{
     cursor: pointer;
-    background: red;
+}
+
+
+#teamnameholder{
+    margin: auto;
+    padding-top: 50px;
+    width: 50%;
 }

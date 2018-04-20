@@ -6,6 +6,8 @@
   background-color: #FFFFFF;
   width: 850px;
   margin: auto;
+  height: 100%;
+
 }
 
 .App-title {
@@ -20,4 +22,9 @@
   #contentorgameholder{
     height: 1200px;
   }
+}
+
+#contentorgameholder{
+  min-height: 100vh;
+  height: 100%;
 }

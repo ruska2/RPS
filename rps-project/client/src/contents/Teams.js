@@ -4,6 +4,7 @@ import "./TeamsStyle.css";
 import Search from './images/search.png'
 import LeaveTeam from "./LeaveTeam";
 import Login from '../auth/Login'
+import CreateNewTeam from "./CreateNewTeam";
 
 class Teams extends Component{
 
@@ -15,15 +16,11 @@ class Teams extends Component{
         };
     }
 
-    componentWillMount(){
-        console.log("teamsTeams" + Login.staticProperty.team);
-    }
-
     render(){
         return <div>
             <GameHeader username={this.state.username}/>
             <div id="actialandbarholder">
-                <div id='actual-team'><div id='actual-team-const'>ACTUAL TEAM:</div> <div id='actual-team-name'>{this.state.team}</div></div>
+                <div id='actual-team'><div id='actual-team-const'>ACTUAL TEAM:</div> <div id='actual-team-name'>{Login.staticProperty.team}</div></div>
 
                 <div id='navbar'>
                     <ul>
@@ -49,8 +46,10 @@ class Teams extends Component{
                 {this.state.active === 'srchdiv' && <div>
                 </div>}
                 {this.state.active === 'lvdiv' &&
-                <LeaveTeam team={this.state.team}/>}
-                {this.state.active === 'newdiv' && <div>NEWDIV</div>}
+                <LeaveTeam/>}
+                {this.state.active === 'newdiv' &&
+                <CreateNewTeam/>
+                }
 
             </div>
         </div>

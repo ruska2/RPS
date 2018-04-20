@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './TableStyle.css';
 import Login from '../auth/Login.js'
+import * as ReactDOM from "react-dom";
 
 class Table extends Component {
 
@@ -8,7 +9,10 @@ class Table extends Component {
         super(props);
         this.state = {
             title: props.title,
-            type: props.type
+            type: props.type,
+            selectedrow: '',
+            selectedrowcolor: '',
+            actualshow: ''
         }
     };
 
@@ -23,14 +27,20 @@ class Table extends Component {
         }
         else if(this.state.type === 3){
             data = this.renderTopTeams();
-        }else{
-            data = this.renderTopTenInYourTeam();
         }
-        return <div id="tablediv">
+        else if(this.state.type === 4){
+            data = this.renderTopTenInYourTeam();
+        }else{
+            data = this.renderAllTeams();
+        }
+        return <div id="tablediv" style={this.state.type === 5 ? {width: '65%'}: null}>
             <h3>{this.state.title}</h3>
-            <div className='table'> {data} </div>
+            <div style={this.state.type === 5 ? {overflow: 'scroll', height: '450px'} : null}>
+                <div className='table' style={this.state.type === 5 ? {marginBottom: 0} : null}> {data} </div>
+            </div>
+            {this.state.selectedrow !== '' && <div id='join'> Join</div>}
         </div>
-    }
+    };
 
     renderTopTenData(){
         let rows = [];
@@ -50,7 +60,7 @@ class Table extends Component {
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
         return rows;
-    }
+    };
 
     renderLastTenData() {
         let rows = [];
@@ -79,15 +89,15 @@ class Table extends Component {
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
         return rows;
-    }
+    };
 
-    getScore(winner){
+    getScore = (winner) =>{
         if(winner === Login.staticProperty.username){
             return "+"
         }else{
             return "-"
         }
-    }
+    };
 
     renderTopTeams() {
         let rows = [];
@@ -106,7 +116,7 @@ class Table extends Component {
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
         return rows;
-    }
+    };
 
     convertDate = (date) =>{
         if(date === null) return "";
@@ -132,8 +142,53 @@ class Table extends Component {
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
         return rows;
-    }
+    };
 
+    renderAllTeams = () => {
+        let data = this.props.data;
+        if(this.props.srch !== ''){
+            let newdata = [];
+            let srch = this.props.srch;
+            let index = 0;
+            for(let i = 0; i < data.length; i++){
+                if((data[i].name).includes(srch)){
+                    newdata[index] = data[i];
+                    index++;
+                }
+            }
+            data = newdata;
+        }
+        let rows = [];
+        let cells = [];
+        ['Number', 'Name', 'Number of memebers'].forEach(function (heading) {
+            cells.push(<div className='cell header' style={{background: "#2980b9"}}>{heading}</div>);
+        });
+        rows.push(<div className='row'>{cells}</div>);
+
+        for (let i = 0; i < data.length; i++) {
+            let cells = [];
+            cells.push(<div className='cell' data-title="Number">{i + 1}{"."}</div>);
+            cells.push(<div className='cell' data-title="Winner">{data[i].name}</div>);
+            cells.push(<div className='cell' data-title="Loser">{data[i].number}</div>);
+            let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
+            rows.push(<div id={data[i].name} className='row' style={{background: color}} onClick={this.clickOnRows}>{cells}</div>);
+        }
+        return rows;
+    };
+
+    clickOnRows = (e) =>{
+        if(this.state.selectedrow !== ''){
+            let oldrow = document.getElementById(this.state.selectedrow);
+            console.log(oldrow);
+            oldrow.style.backgroundColor = this.state.selectedrowcolor;
+        }
+        let row = ReactDOM.findDOMNode(e.target).parentNode;
+        this.setState({
+            selectedrow: row.id,
+            selectedrowcolor: row.style.backgroundColor
+        });
+        row.style.backgroundColor = "#27bdf4";
+    };
 }
 
 export default Table;

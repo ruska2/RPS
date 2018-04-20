@@ -17,7 +17,7 @@ class CreateNewTeam extends Component{
         return  <div>
             {Login.staticProperty.team !=='' && <div className="alert" style={{display: this.state.alert}}>
                 <span className="closebtn" onClick={this.hideAlert}>&times;</span>
-                You have to leave your presnt team to create new!
+                You have to leave your present team to create new!
             </div>}
             {Login.staticProperty.team === '' && <div id="teamnameholder">
                 <div className='form-group'><label htmlFor="teamname">Name:</label>

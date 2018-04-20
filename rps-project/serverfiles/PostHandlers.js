@@ -89,5 +89,11 @@ module.exports = {
         const team = req.body.team;
         const id = (await database.addTeam(team)).rows[0].team_id;
         await database.updateUserTeam(name,id);
+    },
+
+    handleGetTeams:
+    async function handleGetTeams(res){
+        let result = await database.getTeams();
+        res.status(200).json({teams: result.rows});
     }
 };

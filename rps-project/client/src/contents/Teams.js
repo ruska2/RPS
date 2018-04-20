@@ -5,6 +5,7 @@ import Search from './images/search.png'
 import LeaveTeam from "./LeaveTeam";
 import Login from '../auth/Login'
 import CreateNewTeam from "./CreateNewTeam";
+import SearchTeams from "./SearchTeams";
 
 class Teams extends Component{
 
@@ -43,8 +44,7 @@ class Teams extends Component{
                 </div>
                 <hr/>
 
-                {this.state.active === 'srchdiv' && <div>
-                </div>}
+                {this.state.active === 'srchdiv' && <SearchTeams/>}
                 {this.state.active === 'lvdiv' &&
                 <LeaveTeam/>}
                 {this.state.active === 'newdiv' &&

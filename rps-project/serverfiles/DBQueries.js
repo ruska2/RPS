@@ -103,6 +103,11 @@ module.exports ={
         async function updateUserTeam(name,id){
             let sql = "UPDATE \"user\" SET team_id =" + id + " WHERE name='"+ name +"'";
             return await pool.query(sql);
-    }
+    },
 
+    getTeams:
+        async function getTeams(){
+            let sql = "SELECT name,(SELECT COUNT(*) as number FROM \"user\" WHERE \"user\".team_id = team.team_id) from team ";
+            return await pool.query(sql);
+        }
 };

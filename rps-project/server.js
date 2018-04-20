@@ -52,3 +52,7 @@ app.post('/getteamexists',(req,res) => {
 app.post('/addteam',(req,res) => {
     return handlers.handleAddTeam(req,res);
 });
+
+app.post('/getteams', (req,res) =>{
+    return handlers.handleGetTeams(res);
+});

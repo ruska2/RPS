@@ -222,7 +222,7 @@ class Table extends Component {
         axios.post('/addusertoteam',userData).then( () => {
             window.location.reload();
         });
-    }
+    };
 
     hideAlert = () =>{
         this.setState({

@@ -28,24 +28,24 @@ class GameHeader extends Component{
                     <div id='usernamediv'>
                         <div id='usernamedisplay'>{this.state.username}</div>
                     </div>
-                    <div id='scorediv'>
+                    {this.state.username !== 'admin123' && <div id='scorediv'>
                         <div id='score'>SCORE: {Login.staticProperty.score}</div>
-                    </div>
-                    <div id='teamdiv'>
+                    </div>}
+                    {this.state.username !== 'admin123' &&<div id='teamdiv'>
                         <div id='team'>{Login.staticProperty.team ? "TEAM: " : null} {Login.staticProperty.team}</div>
-                    </div>
+                    </div>}
                     <div id="logoutdiv" onClick={this.logoutClicked}>
                         <img id='logoutimg'  src={LogoutImage} alt='logout-img'/>
                     </div>
-                    <div id="statisticsdiv">
+                    {this.state.username !== 'admin123' &&<div id="statisticsdiv">
                         <Link to='/game/statistics' id="statisticslink"> STATISTICS </Link>
-                    </div>
-                    <div id="teamsdiv">
+                    </div>}
+                    {this.state.username !== 'admin123' &&<div id="teamsdiv">
                         <Link to='/game/teams' id="teamslink"> TEAMS </Link>
-                    </div>
-                    <div id="gamediv">
+                    </div>}
+                    {this.state.username !== 'admin123' &&<div id="gamediv">
                         <Link to='/game' id="gamelink"> GAME </Link>
-                    </div>
+                    </div>}
                 </div>
 
             </div>

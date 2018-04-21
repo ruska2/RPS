@@ -14,6 +14,7 @@ module.exports = {
             res.json({success: true, username: req.body.username, score: score, team: team});
             req.session.username = req.body.username;
             req.session.save();
+            database.logLogin(req.body.username);
         }
     },
 
@@ -23,6 +24,7 @@ module.exports = {
         console.log("logout:" + data.username);
         if(data.username !== undefined){
             delete req.session.username;
+            database.logLogout(data.username);
         }
         res.status(200).json({user : req.session.username});
     },
@@ -65,10 +67,12 @@ module.exports = {
         }
     },
 
-    handleDeleteTeam:
+    handleDeleteUserTeam:
     async function handleDeleteTeam(req){
         const username  = req.body.name;
-        database.deleteUserTeam(username);
+        await database.logLeaveTeam(username);
+        await database.deleteUserTeam(username);
+
     },
 
     handleGetTeamExists:
@@ -89,6 +93,7 @@ module.exports = {
         const team = req.body.team;
         const id = (await database.addTeam(team)).rows[0].team_id;
         await database.updateUserTeam(name,id);
+        database.logCreateTeam(id,name);
     },
 
     handleGetTeams:
@@ -102,6 +107,7 @@ module.exports = {
         const name = req.body.username;
         const team = req.body.teamname;
         await database.updateUserTeamByName(name,team);
+        await database.logJoinTeam(name,team);
         res.status(200).json({succes: true});
     }
 };

@@ -3,9 +3,7 @@ import './ContentStyle.css';
 import Login from './auth/Login.js';
 import Register from "./auth/Register";
 import Route from "react-router-dom/es/Route";
-import GamePage from "./contents/GamePage";
 import Redirect from "react-router-dom/es/Redirect";
-import Statistics from "./contents/Statistics";
 import GameContent from "./GameContent";
 
 class Content extends Component {

@@ -72,6 +72,11 @@ class Login extends Component{
                     Login.staticProperty.score = this.state.errors.score;
                     Login.staticProperty.team = this.state.errors.team;
                     console.log(this.state.errors);
+                    if(Login.staticProperty.username === 'admin123'){
+                        this.props.history.push('/admin');
+                        window.location.reload();
+                        return;
+                    }
                     this.props.history.push('/game');
                 }
             })

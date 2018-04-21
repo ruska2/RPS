@@ -42,7 +42,7 @@ app.post('/getstatistics',(req,res) => {
 });
 
 app.post('/deleteuserteam', (req,res) =>{
-   return handlers.handleDeleteTeam(req);
+   return handlers.handleDeleteUserTeam(req);
 });
 
 app.post('/getteamexists',(req,res) => {

@@ -3,6 +3,8 @@ import Route from "react-router-dom/es/Route";
 import GamePage from "./contents/GamePage";
 import Statistics from "./contents/Statistics";
 import Teams from "./contents/Teams";
+import Redirect from "react-router-dom/es/Redirect";
+import AdminContent from "./contents/images/AdminContent";
 
 class GameContent extends Component {
 
@@ -10,6 +12,7 @@ class GameContent extends Component {
         super(props);
         this.state = {
             username: props.username,
+            alert: 'block'
         };
 
     }
@@ -23,6 +26,7 @@ class GameContent extends Component {
                 <Route path='/login' exact render={ props => <GamePage username={this.state.username}/>}/>
                 <Route path='/register/' exact render={ props => <GamePage username={this.state.username} />}/>
                 <Route path='/' exact render={ props => <GamePage username={this.state.username}/>}/>
+                <Route path='/admin' exact render={ props => <AdminContent username={this.state.username}/>}/>
             </div>
         );
     }

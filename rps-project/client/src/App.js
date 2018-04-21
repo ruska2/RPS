@@ -8,6 +8,7 @@ import {createStore, applyMiddleware} from 'redux';
 import Provider from "react-redux/src/components/Provider";
 import Login from "./auth/Login";
 import GameContent from "./GameContent";
+import AdminContent from "./contents/images/AdminContent";
 
 const store = createStore(
     (state = {}) => state, applyMiddleware(thunk)
@@ -36,7 +37,10 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <div className="App">
-                        <div id="contentorgameholder">{!logged ? <Content logged={this.state.logged}/> :/* redirect to gamepage*/ <GameContent username={this.state.logged} score={this.state.score}/> }</div>
+                        <div id="contentorgameholder">
+                            {!logged && <Content logged={this.state.logged}/>}
+                            {logged && <GameContent username={this.state.logged} score={this.state.score}/>}
+                            </div>
                         <Footer/>
                     </div>
                 </Router>

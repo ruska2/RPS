@@ -115,5 +115,36 @@ module.exports ={
         async function getTeams(){
             let sql = "SELECT name,(SELECT COUNT(*) as number FROM \"user\" WHERE \"user\".team_id = team.team_id) from team ";
             return await pool.query(sql);
-        }
+        },
+
+    logLogin:
+        async function logLogin(username){
+            let sql = "INSERT INTO log (user_id,log_type,time) VALUES((SELECT user_id from \"user\" WHERE name = '"+username+"'),1,CURRENT_TIMESTAMP)";
+            await pool.query(sql);
+        },
+
+    logLogout:
+        async function logLogout(username){
+            let sql = "INSERT INTO log (user_id,log_type,time) VALUES((SELECT user_id from \"user\" WHERE name = '"+username+"'),2,CURRENT_TIMESTAMP)";
+            await pool.query(sql);
+        },
+
+    logCreateTeam:
+        async function logCreateTeam(id,username){
+            let sql = "INSERT INTO log (team_id,user_id,log_type,time) VALUES("+id+",(SELECT user_id from \"user\" WHERE name = '"+username+"'),5,CURRENT_TIMESTAMP)";
+            await pool.query(sql);
+        },
+
+    logLeaveTeam:
+        async function logLeaveTeam(username){
+            let sql = "INSERT INTO log (team_id,user_id,log_type,time) VALUES((SELECT team_id from \"user\" WHERE name = '"+ username +"'),(SELECT user_id from \"user\" WHERE name = '"+username+"'),4,CURRENT_TIMESTAMP)";
+            console.log(sql);
+            await pool.query(sql);
+        },
+
+    logJoinTeam:
+        async function logJoinTeam(username,team){
+            let sql = "INSERT INTO log (team_id,user_id,log_type,time) VALUES((SELECT team_id from team WHERE name = '"+ team +"'),(SELECT user_id from \"user\" WHERE name = '"+username+"'),3,CURRENT_TIMESTAMP)";
+            await pool.query(sql);
+        },
 };

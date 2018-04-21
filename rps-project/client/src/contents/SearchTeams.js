@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Table from "./Table";
-import Login from "../auth/Login";
 
 class SearchTeams extends Component{
 

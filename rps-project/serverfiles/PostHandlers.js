@@ -95,5 +95,13 @@ module.exports = {
     async function handleGetTeams(res){
         let result = await database.getTeams();
         res.status(200).json({teams: result.rows});
+    },
+
+    handleAddUserToTeam:
+    async function handleAddUserToTeam(req,res){
+        const name = req.body.username;
+        const team = req.body.teamname;
+        await database.updateUserTeamByName(name,team);
+        res.status(200).json({succes: true});
     }
 };

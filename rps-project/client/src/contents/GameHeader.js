@@ -58,10 +58,8 @@ class GameHeader extends Component{
             (response) => {
                 console.log(response.data.username);
                 Register.staticProperty.msg = '';
-                this.context.router.history.push("/login");
-                if(Login.staticProperty.username === ''){
-                    window.location.reload();
-                }
+                //this.context.router.history.push("/login");
+                window.location.reload();
 
             })
             .catch ((error) => {

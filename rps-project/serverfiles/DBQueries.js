@@ -105,6 +105,12 @@ module.exports ={
             return await pool.query(sql);
     },
 
+    updateUserTeamByName:
+        async function updateUserTeamByName(name,teamname){
+            let sql = "UPDATE \"user\" SET team_id = (SELECT team_id from team WHERE name = '"+ teamname+"') WHERE name='"+ name +"'";
+            return await pool.query(sql);
+        },
+
     getTeams:
         async function getTeams(){
             let sql = "SELECT name,(SELECT COUNT(*) as number FROM \"user\" WHERE \"user\".team_id = team.team_id) from team ";

@@ -56,3 +56,7 @@ app.post('/addteam',(req,res) => {
 app.post('/getteams', (req,res) =>{
     return handlers.handleGetTeams(res);
 });
+
+app.post('/addusertoteam', (req,res) => {
+   return handlers.handleAddUserToTeam(req,res);
+});

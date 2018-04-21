@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './TableStyle.css';
 import Login from '../auth/Login.js'
 import * as ReactDOM from "react-dom";
+import axios from 'axios';
 
 class Table extends Component {
 
@@ -10,12 +11,16 @@ class Table extends Component {
         this.state = {
             title: props.title,
             type: props.type,
-            selectedrow: '',
+            selectedrow:'',
             selectedrowcolor: '',
-            actualshow: ''
+            alert: 'none'
         }
     };
 
+    static staticProperty = {
+        selectedrow: '',
+        selectedrowcolor:''
+    };
 
     render() {
         let data;
@@ -38,7 +43,13 @@ class Table extends Component {
             <div style={this.state.type === 5 ? {overflow: 'scroll', height: '450px'} : null}>
                 <div className='table' style={this.state.type === 5 ? {marginBottom: 0} : null}> {data} </div>
             </div>
-            {this.state.selectedrow !== '' && <div id='join'> Join</div>}
+            <br/>
+            <br/>
+            <div className="alert" onClick={this.hideAlert} style={{display: this.state.alert}}>
+                <span className="closebtn">&times;</span>
+                You have to leave your present team to join new!
+            </div>
+            {this.state.selectedrow !== '' && <button id='leaving' onClick={this.joinTeam}>Join Team</button>}
         </div>
     };
 
@@ -145,6 +156,14 @@ class Table extends Component {
     };
 
     renderAllTeams = () => {
+        if(Table.staticProperty.selectedrow === ''){
+            let oldrow = document.getElementById(this.state.selectedrow);
+            if (oldrow != null) {
+                oldrow.style.backgroundColor = this.state.selectedrowcolor;
+            }
+            this.state.selectedrowcolor = '';
+            this.state.selectedrow = '';
+        }
         let data = this.props.data;
         if(this.props.srch !== ''){
             let newdata = [];
@@ -177,18 +196,40 @@ class Table extends Component {
     };
 
     clickOnRows = (e) =>{
-        if(this.state.selectedrow !== ''){
+        if(this.state.selectedrow !== '') {
             let oldrow = document.getElementById(this.state.selectedrow);
-            console.log(oldrow);
-            oldrow.style.backgroundColor = this.state.selectedrowcolor;
+            if (oldrow != null) {
+                oldrow.style.backgroundColor = this.state.selectedrowcolor;
+            }
         }
         let row = ReactDOM.findDOMNode(e.target).parentNode;
+        Table.staticProperty.selectedrow = row.id;
         this.setState({
-            selectedrow: row.id,
-            selectedrowcolor: row.style.backgroundColor
+            selectedrowcolor: row.style.backgroundColor,
+            selectedrow: row.id
         });
         row.style.backgroundColor = "#27bdf4";
     };
+
+    joinTeam = () => {
+        if(Login.staticProperty.team !==''){
+            this.setState({
+                alert: 'block'
+            });
+            return;
+        }
+        let userData = {username: Login.staticProperty.username, teamname: this.state.selectedrow};
+        axios.post('/addusertoteam',userData).then( () => {
+            window.location.reload();
+        });
+    }
+
+    hideAlert = () =>{
+        this.setState({
+            alert: 'none'
+        })
+    };
+
 }
 
 export default Table;

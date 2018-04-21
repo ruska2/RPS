@@ -3,7 +3,6 @@ import Route from "react-router-dom/es/Route";
 import GamePage from "./contents/GamePage";
 import Statistics from "./contents/Statistics";
 import Teams from "./contents/Teams";
-import Redirect from "react-router-dom/es/Redirect";
 import AdminContent from "./contents/images/AdminContent";
 
 class GameContent extends Component {

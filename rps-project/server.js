@@ -60,3 +60,7 @@ app.post('/getteams', (req,res) =>{
 app.post('/addusertoteam', (req,res) => {
    return handlers.handleAddUserToTeam(req,res);
 });
+
+app.post('/getlogs', (req,res) => {
+    return handlers.handleGetLogs(req,res);
+});

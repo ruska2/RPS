@@ -109,5 +109,11 @@ module.exports = {
         await database.updateUserTeamByName(name,team);
         await database.logJoinTeam(name,team);
         res.status(200).json({succes: true});
+    },
+
+    handleGetLogs:
+    async function handleGetLogs(req,res){
+        let rows = (await database.getLogs()).rows;
+        res.status(200).json(rows);
     }
 };

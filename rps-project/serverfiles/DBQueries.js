@@ -147,4 +147,15 @@ module.exports ={
             let sql = "INSERT INTO log (team_id,user_id,log_type,time) VALUES((SELECT team_id from team WHERE name = '"+ team +"'),(SELECT user_id from \"user\" WHERE name = '"+username+"'),3,CURRENT_TIMESTAMP)";
             await pool.query(sql);
         },
+
+    getLogs:
+        async function getLogs(){
+         let sql = "SELECT (SELECT name from team WHERE team_id = log.team_id) as team_name,\n" +
+             "\t\t(SELECT name from \"user\" WHERE user_id = log.user_id) as username,\n" +
+             "\t\t(SELECT name from log_type WHERE type_id = log.log_type) as type,\n" +
+             "\t\ttime\n" +
+             "from log\n" +
+             "ORDER BY time DESC";
+         return await pool.query(sql);
+        }
 };

@@ -15,7 +15,8 @@ class AdminContent extends Component {
             createlogs: [],
             userss: [],
             teams: [],
-            games: []
+            games: [],
+            errors: {}
         }
     };
 
@@ -39,7 +40,18 @@ class AdminContent extends Component {
                 {this.state.username === 'admin123' &&
                     <div style={{height: '1300px'}}> {logins} {logouts} {joins} {lefts} {create}</div>
                 }
-                <div><div style={{textAlign: 'center'}}><h3>BUTTONS</h3></div></div>
+                <div><div style={{textAlign: 'center', margin: 'auto'}}>
+                    <div className='form-group' style={{width: '25%', margin: 'auto'}}>
+                        {this.state.errors.user && <span className='help-block'>{this.state.errors.user}</span>}
+                        <input id={this.state.errors.user ? 'has-error' : 'delete-user'} name='delete-user' className="form-control" type='text' size='30' placeholder='User name..'/>
+                        <input style={{margin: '10px', marginLeft: '25px'}} className='btn btn-primary' id='deleteuser' type='submit' value='Delete user'/>
+                    </div>
+                    <div className='form-group' style={{width: '25%', margin: 'auto'}}>
+                        {this.state.errors.user && <span className='help-block'>{this.state.errors.team}</span>}
+                        <input id={this.state.errors.team ? 'has-error' : 'delete-team'} name='delete-team' className="form-control" type='text' size='30' placeholder='Team name..'/>
+                        <input style={{marginTop: '10px', marginLeft: '20px'}} className='btn btn-primary' id='deleteteam' type='submit' value='Delete team'/>
+                    </div>
+                </div></div>
             </div>
         );
     }

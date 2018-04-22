@@ -9,7 +9,7 @@ let handlers = require('./serverfiles/PostHandlers');
 app.listen(3001,() =>  console.log("Running on localhost:3001"));
 app.use(bodyParser.json());
 
-//SESSION
+//SESSIONnpm install express-session
 let session = require('express-session');
 app.set('trust proxy', 1); // trust first proxy
 app.use(session({

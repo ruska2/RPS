@@ -3,7 +3,7 @@ import Route from "react-router-dom/es/Route";
 import GamePage from "./contents/GamePage";
 import Statistics from "./contents/Statistics";
 import Teams from "./contents/Teams";
-import AdminContent from "./contents/images/AdminContent";
+import AdminContent from "./contents/AdminContent";
 
 class GameContent extends Component {
 

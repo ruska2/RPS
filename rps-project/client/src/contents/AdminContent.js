@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GameHeader from "../GameHeader";
+import GameHeader from "./GameHeader";
 import axios from 'axios';
 
 class AdminContent extends Component {

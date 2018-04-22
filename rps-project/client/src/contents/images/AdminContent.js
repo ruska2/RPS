@@ -13,7 +13,7 @@ class AdminContent extends Component {
             joinlogs: [],
             leftlogs: [],
             createlogs: [],
-            userss: [],
+            users: [],
             teams: [],
             games: [],
             errors: {}
@@ -25,11 +25,14 @@ class AdminContent extends Component {
     }
 
     render() {
-        const logins = this.twoColumnTable(this.state.loginlogs, "Logins");
-        const logouts = this.twoColumnTable(this.state.logoutlogs, "Logouts");
-        const joins = this.threeColumnTable(this.state.joinlogs, "Users joins team");
-        const lefts = this.threeColumnTable(this.state.leftlogs, "Users lefts team");
-        const create = this.threeColumnTable(this.state.createlogs, "Users created team");
+        const logins = this.threeColumnTable(this.state.loginlogs, "Logins");
+        const logouts = this.threeColumnTable(this.state.logoutlogs, "Logouts");
+        const joins = this.fourColumnTable(this.state.joinlogs, "Users joins team");
+        const lefts = this.fourColumnTable(this.state.leftlogs, "Users lefts team");
+        const create = this.fourColumnTable(this.state.createlogs, "Users created team");
+        const users = this.twoColumnTable(this.state.users, "Users");
+        const teams = this.twoColumnTable(this.state.teams, "Teams");
+        const games = this.fiveColumnTable(this.state.games, "Games");
         return (
             <div>
                <GameHeader username={this.state.username}/>
@@ -38,10 +41,11 @@ class AdminContent extends Component {
                     You are not ADMIN!
                 </div> }
                 {this.state.username === 'admin123' &&
-                    <div style={{height: '1300px'}}> {logins} {logouts} {joins} {lefts} {create}</div>
+                <div> {logins} {logouts} {joins} {lefts} {create} <div style={{marginLeft: '190px'}}>{users} {teams}</div> {games} </div>
                 }
                 <div><div style={{textAlign: 'center', margin: 'auto'}}>
                     <div className='form-group' style={{width: '25%', margin: 'auto'}}>
+                        <label style={{marginTop: '40px'}} htmlFor="delete-user">Delete users/teams</label>
                         {this.state.errors.user && <span className='help-block'>{this.state.errors.user}</span>}
                         <input id={this.state.errors.user ? 'has-error' : 'delete-user'} name='delete-user' className="form-control" type='text' size='30' placeholder='User name..'/>
                         <input style={{margin: '10px', marginLeft: '25px'}} className='btn btn-primary' id='deleteuser' type='submit' value='Delete user'/>
@@ -69,7 +73,8 @@ class AdminContent extends Component {
         )
     };
 
-    handleLogs = (data) => {
+    handleLogs = (serverdata) => {
+        let data = serverdata[0];
         const logins = [];
         const logouts = [];
         const joins = [];
@@ -100,7 +105,10 @@ class AdminContent extends Component {
             logoutlogs: logouts,
             joinlogs: joins,
             leftlogs: lefts,
-            createlogs: news
+            createlogs: news,
+            users: serverdata[1],
+            teams: serverdata[2],
+            games: serverdata[3]
         })
     };
 
@@ -110,7 +118,7 @@ class AdminContent extends Component {
         return t[0] + '-' + t[1] + '-' + t[2] + " " + t[3] + ':' + t[4];
     };
 
-    twoColumnTable = (datas,log_type) =>{
+    threeColumnTable = (datas,log_type) =>{
         let rows = [];
         let cells = [];
         ['Number', 'Name', 'Time'].forEach(function (heading) {
@@ -129,7 +137,7 @@ class AdminContent extends Component {
         return <div style={{float:'left', margin: '20px'}}><h3>{log_type}</h3><div style={{height: '200px', overflow: 'scroll'}}>{rows}</div></div>;
     };
 
-    threeColumnTable = (datas,log_type) =>{
+    fourColumnTable = (datas,log_type) =>{
         let rows = [];
         let cells = [];
         ['Number', 'User name','Team name', 'Time'].forEach(function (heading) {
@@ -142,12 +150,51 @@ class AdminContent extends Component {
             cells.push(<div className='cell' data-title="Number">{i + 1}{"."}</div>);
             cells.push(<div className='cell' data-title="Name">{datas[i].username}</div>);
             cells.push(<div className='cell' data-title="Name">{datas[i].team_name}</div>);
-            cells.push(<div className='cell' data-title="Score">{this.convertDate(datas[i].time)}</div>);
+            cells.push(<div className='cell' data-title="Time">{this.convertDate(datas[i].time)}</div>);
             let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
         return <div style={{float:'left', margin: '20px', marginLeft: '200px'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll'}}>{rows}</div></div>;
-    }
+    };
+
+    twoColumnTable = (datas,log_type) =>{
+        let rows = [];
+        let cells = [];
+        ['Number', 'User name'].forEach(function (heading) {
+            cells.push(<div className='cell header' style={{background: "#A00"}}>{heading}</div>);
+        });
+        rows.push(<div className='row'>{cells}</div>);
+
+        for (let i = 0; i < datas.length; i++) {
+            let cells = [];
+            cells.push(<div className='cell' data-title="Number">{i + 1}{"."}</div>);
+            cells.push(<div className='cell' data-title="Name">{datas[i].name}</div>);
+            let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
+            rows.push(<div className='row' style={{background: color}}>{cells}</div>);
+        }
+        return <div style={{float:'left', margin: '20px'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll'}}>{rows}</div></div>;
+    };
+
+    fiveColumnTable = (datas,log_type) =>{
+        let rows = [];
+        let cells = [];
+        ['Number', 'Winner name','Lose name','Score', 'Time'].forEach(function (heading) {
+            cells.push(<div className='cell header' style={{background: "#005500"}}>{heading}</div>);
+        });
+        rows.push(<div className='row'>{cells}</div>);
+
+        for (let i = 0; i < datas.length; i++) {
+            let cells = [];
+            cells.push(<div className='cell' data-title="Number">{i + 1}{"."}</div>);
+            cells.push(<div className='cell' data-title="Name">{datas[i].winner}</div>);
+            cells.push(<div className='cell' data-title="Name">{datas[i].loser}</div>);
+            cells.push(<div className='cell' data-title="Score">{datas[i].score}</div>);
+            cells.push(<div className='cell' data-title="Time">{this.convertDate(datas[i].time)}</div>);
+            let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
+            rows.push(<div className='row' style={{background: color}}>{cells}</div>);
+        }
+        return <div style={{float:'left', margin: '20px', marginLeft: '150px'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll'}}>{rows}</div></div>;
+    };
 
 
 

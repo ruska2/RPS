@@ -157,5 +157,23 @@ module.exports ={
              "from log\n" +
              "ORDER BY time DESC";
          return await pool.query(sql);
+        },
+
+    getTeams:
+    async function getTeams(){
+        let sql = "SELECT name from team";
+        return (await pool.query(sql)).rows;
+    },
+
+    getUsersLog:
+        async function getUsersLog(){
+            let sql = "SELECT name from \"user\"";
+            return (await pool.query(sql)).rows;
+        },
+
+    getGames:
+        async function getGames(){
+            let sql = "SELECT (SELECT name from \"user\" WHERE user_id = game.winner_id) as winner, (SELECT name from \"user\" WHERE user_id = game.loser_id) as loser, score, time from game";
+            return (await pool.query(sql)).rows;
         }
 };

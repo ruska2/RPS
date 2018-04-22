@@ -122,7 +122,7 @@ module.exports = {
         async function handleGetLogs(req, res) {
             let rows = (await database.getLogs()).rows;
             let users = (await database.getUsersLog());
-            let teams = (await database.getTeams());
+            let teams = (await database.getAllTeams());
             let games = (await database.getGames());
             res.status(200).json([rows, users, teams, games]);
         },

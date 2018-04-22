@@ -11,7 +11,7 @@ let pool = new Pool(config);
 
 module.exports ={
     getTopUsers : async function getTopUsers(){
-        let sql = "SELECT \"user\".name,\"user\".score, team.name as team_name from \"user\" left join team on team.team_id = \"user\".team_id ORDER BY \"user\".score DESC";
+        let sql = "SELECT \"user\".name,\"user\".score, team.name as team_name from \"user\" left join team on team.team_id = \"user\".team_id WHERE \"user\".name != 'admin123' ORDER BY \"user\".score DESC";
         return await pool.query(sql);
     },
 
@@ -159,8 +159,8 @@ module.exports ={
          return await pool.query(sql);
         },
 
-    getTeams:
-    async function getTeams(){
+    getAllTeams:
+    async function getAllTeams(){
         let sql = "SELECT name from team";
         return (await pool.query(sql)).rows;
     },

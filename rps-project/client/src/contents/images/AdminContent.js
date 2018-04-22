@@ -43,19 +43,19 @@ class AdminContent extends Component {
                     You are not ADMIN!
                 </div> }
                 {this.state.username === 'admin123' &&
-                <div> {logins} {logouts} {joins} {lefts} {create} <div style={{marginLeft: '190px'}}>{users} {teams}</div> {games} </div>
+                <div> {logins} {logouts} {joins} {lefts} {create}{users} {teams} {games} </div>
                 }
                 <div><div style={{textAlign: 'center', margin: 'auto'}}>
                     <div className='form-group' style={{width: '25%', margin: 'auto'}}>
                         <label style={{marginTop: '40px'}} htmlFor="delete-user">Delete users/teams</label>
                         {this.state.errors.deleteuser && <span className='help-block'>{this.state.errors.deleteuser}</span>}
                         <input id={this.state.errors.deleteuser ? 'has-error' : 'delete-user'} name='deleteuser' className="form-control" type='text' size='30' placeholder='User name..'  onChange={this.onChange}/>
-                        <input style={{margin: '10px', marginLeft: '25px'}} className='btn btn-primary' id='deleteuser' type='submit' onClick={this.clickDeleteUser} value='Delete user'/>
+                        <input className='btn btn-primary' id='deleteuser' type='submit' onClick={this.clickDeleteUser} value='Delete user'/>
                     </div>
                     <div className='form-group' style={{width: '25%', margin: 'auto'}}>
                         {this.state.errors.deleteteam && <span className='help-block'>{this.state.errors.deleteteam}</span>}
                         <input id={this.state.errors.deleteteam ? 'has-error' : 'delete-team'} name='deleteteam' className="form-control" type='text' size='30' placeholder='Team name..' onChange={this.onChange}/>
-                        <input style={{marginTop: '10px', marginLeft: '20px'}} className='btn btn-primary' id='deleteteam' type='submit'  onClick={this.clickDeleteTeam} value='Delete team'/>
+                        <input className='btn btn-primary' id='deleteteam' type='submit'  onClick={this.clickDeleteTeam} value='Delete team'/>
                     </div>
                 </div></div>
             </div>
@@ -136,7 +136,7 @@ class AdminContent extends Component {
             let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
-        return <div style={{float:'left', margin: '20px'}}><h3>{log_type}</h3><div style={{height: '200px', overflow: 'scroll'}}>{rows}</div></div>;
+        return <div style={{float:'left', margin: '20px'}}><h3>{log_type}</h3><div style={{height: '200px', overflow: 'scroll', boxShadow: '1px 1px #888888'}}>{rows}</div></div>;
     };
 
     fourColumnTable = (datas,log_type) =>{
@@ -156,7 +156,7 @@ class AdminContent extends Component {
             let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
-        return <div style={{float:'left', margin: '20px', marginLeft: '200px'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll'}}>{rows}</div></div>;
+        return <div id='threecolumntable' style={{float:'left'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll', boxShadow: '1px 1px #888888'}}>{rows}</div></div>;
     };
 
     twoColumnTable = (datas,log_type) =>{
@@ -174,7 +174,7 @@ class AdminContent extends Component {
             let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
-        return <div style={{float:'left', margin: '20px'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll'}}>{rows}</div></div>;
+        return <div id='twocolumntable' style={{float:'left'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll', boxShadow: '1px 1px #888888'}}>{rows}</div></div>;
     };
 
     fiveColumnTable = (datas,log_type) =>{
@@ -195,7 +195,7 @@ class AdminContent extends Component {
             let color = i % 2 === 0 ? '#e9e9e9' : '#f6f6f6';
             rows.push(<div className='row' style={{background: color}}>{cells}</div>);
         }
-        return <div style={{float:'left', margin: '20px', marginLeft: '150px'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll'}}>{rows}</div></div>;
+        return <div id='fivecolumntable' style={{float:'left'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll', boxShadow: '1px 1px #888888'}}>{rows}</div></div>;
     };
 
     onChange = (e) => {

@@ -40,3 +40,57 @@
     text-align: center;
     margin: auto;
 }
+
+#threecolumntable{
+    margin-left: 200px;
+}
+
+#fivecolumntable{
+    margin-left: 150px;
+}
+
+#twocolumntable{
+    margin-left: 160px;
+}
+
+#fourcolumntable{
+    margin-left: 150px;
+}
+#deleteuser{
+    margin: 10px;
+}
+
+#deleteteam{
+    margin: 10px;
+}
+
+
+@media only screen and (max-width: 800px) {
+    #tablediv div{
+        overflow: scroll;
+    }
+    #threecolumntable{
+        margin-left: 20px;
+        overflow: scroll;
+        width: 280px;
+    }
+    #fivecolumntable{
+        margin-left: 20px;
+        overflow: scroll;
+        width: 280px;
+    }
+    #twocolumntable{
+        margin-left: 60px;
+    }
+    #deleteuser{
+        margin: 10px 0 10px 0;
+    }
+
+    #deleteteam{
+        margin: 10px 0 10px 0;
+    }
+}
+
+
+
+

@@ -157,3 +157,10 @@ li:last-child {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     margin: auto;
 }
+
+
+@media only screen and (max-width: 800px) {
+    #actialandbarholder{
+        width: auto;
+    }
+}

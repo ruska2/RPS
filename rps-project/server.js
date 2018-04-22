@@ -64,3 +64,11 @@ app.post('/addusertoteam', (req,res) => {
 app.post('/getlogs', (req,res) => {
     return handlers.handleGetLogs(req,res);
 });
+
+app.post('/deleteuser', (req,res) =>{
+   return handlers.handleDeleteUser(req,res);
+});
+
+app.post('/deleteteam', (req,res) =>{
+    return handlers.handleDeleteTeam(req,res);
+});

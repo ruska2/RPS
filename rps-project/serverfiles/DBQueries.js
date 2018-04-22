@@ -175,5 +175,17 @@ module.exports ={
         async function getGames(){
             let sql = "SELECT (SELECT name from \"user\" WHERE user_id = game.winner_id) as winner, (SELECT name from \"user\" WHERE user_id = game.loser_id) as loser, score, time from game";
             return (await pool.query(sql)).rows;
+        },
+
+    deleteUser:
+        async function deleteUser(name){
+            let sql = "DELETE FROM \"user\" WHERE name ='"+name+"' RETURNING *";
+            return (await pool.query(sql));
+        },
+
+    deleteTeam:
+        async function deleteTeam(name){
+            let sql = "DELETE FROM team WHERE name ='"+name+"' RETURNING *";
+            return (await pool.query(sql));
         }
 };

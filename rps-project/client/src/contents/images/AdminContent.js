@@ -16,7 +16,9 @@ class AdminContent extends Component {
             users: [],
             teams: [],
             games: [],
-            errors: {}
+            errors: {},
+            deleteuser: '',
+            deleteteam: ''
         }
     };
 
@@ -46,14 +48,14 @@ class AdminContent extends Component {
                 <div><div style={{textAlign: 'center', margin: 'auto'}}>
                     <div className='form-group' style={{width: '25%', margin: 'auto'}}>
                         <label style={{marginTop: '40px'}} htmlFor="delete-user">Delete users/teams</label>
-                        {this.state.errors.user && <span className='help-block'>{this.state.errors.user}</span>}
-                        <input id={this.state.errors.user ? 'has-error' : 'delete-user'} name='delete-user' className="form-control" type='text' size='30' placeholder='User name..'/>
-                        <input style={{margin: '10px', marginLeft: '25px'}} className='btn btn-primary' id='deleteuser' type='submit' value='Delete user'/>
+                        {this.state.errors.deleteuser && <span className='help-block'>{this.state.errors.deleteuser}</span>}
+                        <input id={this.state.errors.deleteuser ? 'has-error' : 'delete-user'} name='deleteuser' className="form-control" type='text' size='30' placeholder='User name..'  onChange={this.onChange}/>
+                        <input style={{margin: '10px', marginLeft: '25px'}} className='btn btn-primary' id='deleteuser' type='submit' onClick={this.clickDeleteUser} value='Delete user'/>
                     </div>
                     <div className='form-group' style={{width: '25%', margin: 'auto'}}>
-                        {this.state.errors.user && <span className='help-block'>{this.state.errors.team}</span>}
-                        <input id={this.state.errors.team ? 'has-error' : 'delete-team'} name='delete-team' className="form-control" type='text' size='30' placeholder='Team name..'/>
-                        <input style={{marginTop: '10px', marginLeft: '20px'}} className='btn btn-primary' id='deleteteam' type='submit' value='Delete team'/>
+                        {this.state.errors.deleteteam && <span className='help-block'>{this.state.errors.deleteteam}</span>}
+                        <input id={this.state.errors.deleteteam ? 'has-error' : 'delete-team'} name='deleteteam' className="form-control" type='text' size='30' placeholder='Team name..' onChange={this.onChange}/>
+                        <input style={{marginTop: '10px', marginLeft: '20px'}} className='btn btn-primary' id='deleteteam' type='submit'  onClick={this.clickDeleteTeam} value='Delete team'/>
                     </div>
                 </div></div>
             </div>
@@ -196,6 +198,35 @@ class AdminContent extends Component {
         return <div style={{float:'left', margin: '20px', marginLeft: '150px'}}><h3>{log_type}</h3><div style={{height: '200px', float:'left', overflow: 'scroll'}}>{rows}</div></div>;
     };
 
+    onChange = (e) => {
+        this.setState({
+            [e.target.name] : e.target.value,
+        })
+    };
+
+    clickDeleteUser = (e) => {
+        axios.post('/deleteuser',{name: this.state.deleteuser}).then( (response) =>{
+            this.setState({
+                errors: response.data.errors,
+            });
+            console.log(this.state.errors);
+            if(this.state.errors.succes === true){
+                window.location.reload();
+            }
+        });
+    };
+
+    clickDeleteTeam = (e) => {
+        axios.post('/deleteteam',{name: this.state.deleteteam}).then( (response) =>{
+            this.setState({
+                errors: response.data.errors,
+            });
+            console.log(this.state.errors);
+            if(this.state.errors.succes === true){
+                window.location.reload();
+            }
+        });
+    }
 
 
 

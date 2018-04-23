@@ -99,6 +99,8 @@ class AdminContent extends Component {
                 case('CREATED_TEAM'):
                     news.push(data[i]);
                     break;
+                default:
+                    break;
             }
         }
 

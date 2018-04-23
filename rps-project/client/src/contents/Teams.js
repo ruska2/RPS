@@ -27,7 +27,7 @@ class Teams extends Component{
                     <ul>
                         <li>
                             <div id = 'srchdiv' onClick={this.navClick} style={this.state.active === 'srchdiv' ? {background: "#006CBA" ,color: "white"} : null}>
-                                <img id="searchimg" src={Search}/>
+                                <img alt='srchimg'id="searchimg" src={Search}/>
                             </div>
                         </li>
                         <li>

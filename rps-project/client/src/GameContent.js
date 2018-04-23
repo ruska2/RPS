@@ -19,6 +19,7 @@ class GameContent extends Component {
     render() {
         return (
             <div>
+
                 <Route path='/game' exact render={ props => <GamePage username={this.state.username}/>}/>
                 <Route path='/game/statistics' exact render={ props => <Statistics username={this.state.username}/>}/>
                 <Route path='/game/teams' exact render={ props => <Teams username={this.state.username}  score={this.state.score}/>}/>
@@ -26,6 +27,7 @@ class GameContent extends Component {
                 <Route path='/register/' exact render={ props => <GamePage username={this.state.username} />}/>
                 <Route path='/' exact render={ props => <GamePage username={this.state.username}/>}/>
                 <Route path='/admin' exact render={ props => <AdminContent username={this.state.username}/>}/>
+
             </div>
         );
     }

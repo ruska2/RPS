@@ -8,7 +8,6 @@ import {createStore, applyMiddleware} from 'redux';
 import Provider from "react-redux/src/components/Provider";
 import Login from "./auth/Login";
 import GameContent from "./GameContent";
-import AdminContent from "./contents/AdminContent";
 
 const store = createStore(
     (state = {}) => state, applyMiddleware(thunk)

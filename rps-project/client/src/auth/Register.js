@@ -5,8 +5,6 @@ import About from "../contents/About";
 import Header from "../Header";
 import axios from "axios/index";
 import isEmpty from 'lodash/isEmpty';
-import ReactDOM from "react-dom";
-import App from "../App";
 
 class Register extends Component{
 

@@ -101,7 +101,7 @@ module.exports ={
 
     updateUserTeam:
         async function updateUserTeam(name,id){
-            let sql = "UPDATE \"user\" SET team_id =" + id + " WHERE name='"+ name +"'";
+            let sql = "UPDATE \"user\" SET team_id =" + id + ", last_team_change = CURRENT_TIMESTAMP WHERE name='"+ name +"'";
             return await pool.query(sql);
     },
 

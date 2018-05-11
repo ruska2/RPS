@@ -41,6 +41,10 @@ module.exports ={
         let sql = "SELECT score FROM \"user\" WHERE \"user\".name = '"+ username+"'";
         return (await pool.query(sql)).rows[0].score;
     },
+    getTeamScore: async function getTeamSCore(teamname) {
+        let sql = "SELECT score FROM team WHERE name = '"+ teamname+"'";
+        return (await pool.query(sql)).rows[0].score;
+    },
 
     getUserTeam: async function getUserTeam(username) {
         let sql = "SELECT \"user\".score,team.name FROM \"user\" join team on \"user\".team_id = team.team_id WHERE \"user\".name = '"+ username+"'";
@@ -104,6 +108,50 @@ module.exports ={
             let sql = "UPDATE \"user\" SET team_id =" + id + ", last_team_change = CURRENT_TIMESTAMP WHERE name='"+ name +"'";
             return await pool.query(sql);
     },
+
+
+    updateAddUserScore:
+        async function updateAddUserScore(name){
+            let score = await this.getUserScore(name);
+            score += 50;
+            let sql = "UPDATE \"user\" SET score =" + score + " WHERE name='"+ name +"'";
+            await pool.query(sql);
+            let team = await this.getUserTeam(name);
+            let teamscore = await this.getTeamScore(team);
+            teamscore += 50;
+            let sql2 = "UPDATE team SET score =" + teamscore + " WHERE name='" + name+"'";
+            return await pool.query(sql2);
+        },
+
+    updateSubUserScore:
+        async function updateSubUserScore(name){
+            let score = await this.getUserScore(name);
+            score -= 50;
+            let sql = "UPDATE \"user\" SET score =" + score + " WHERE name='"+ name +"'";
+            await pool.query(sql);
+            let team = await this.getUserTeam(name);
+            let teamscore = await this.getTeamScore(team);
+            teamscore -= 50;
+            let sql2 = "UPDATE team SET score =" + teamscore + " WHERE name='" + name+"'";
+            return await pool.query(sql2);
+        },
+
+    addGame:
+        async function addGAme(winner,loser){
+            let winid = await this.getUserId(winner);
+            let loseid =  await this.getUserId(loser);
+            let sql = "INSERT INTO game (winner_id,loser_id,score,time) VALUES("+winid+", "+loseid+", 50, CURRENT_TIMESTAMP)";
+            console.log(sql);
+            return await pool.query(sql);
+        },
+
+    getUserId:
+        async function getUserId(name){
+            let sql = "SELECT user_id as id FROM \"user\" WHERE name = '" +name+"'";
+            console.log(sql);
+            let res =  await pool.query(sql);
+            return res.rows[0].id;
+        },
 
     updateUserTeamByName:
         async function updateUserTeamByName(name,teamname){

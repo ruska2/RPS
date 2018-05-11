@@ -28,7 +28,9 @@ class Game extends Component{
             <div id="game">
                 {this.state.map != null && this.state.map}
             </div>
-                <div id="joinLeave">
+            <div id="turn">{this.state.move !== null && this.state.move === Login.staticProperty.username && "Your turn!"}
+                            {this.state.move !== null && this.state.move !== Login.staticProperty.username && "Enemy turn!"}</div>
+            <div id="joinLeave">
                     <div id = 'joinLeaveBtn' onClick={this.onJoin}>
                         {this.state.button}
                     </div>
@@ -61,6 +63,10 @@ class Game extends Component{
       socket.on('init', move =>{
           this.drawMap(move);
           document.body.style.cursor = "auto";
+          let as = document.getElementsByTagName("a");
+          for(let i = 0; i < as.length; i++){
+              as[i].style.pointerEvents = "none";
+          }
       });
       socket.on('lose', move =>{
           this.setState({
@@ -70,6 +76,12 @@ class Game extends Component{
               map: null,
               move: null
           });
+          document.body.style.cursor = "auto";
+          let as = document.getElementsByTagName("a");
+          for(let i = 0; i < as.length; i++){
+              as[i].style.pointerEvents = "all";
+          }
+          alert(move);
       });
       socket.on('win', move =>{
             alert(move);
@@ -81,9 +93,12 @@ class Game extends Component{
                 map: null,
                 move: null
             });
+              let as = document.getElementsByTagName("a");
+              for(let i = 0; i < as.length; i++){
+                  as[i].style.pointerEvents = "all";
+              }
             document.body.style.cursor = "auto"
       })
-
     };
 
     drawMap = (init) => {
@@ -126,6 +141,17 @@ class Game extends Component{
                 for(let ind = 0; ind < enemypoints.length; ind++){
                     if(i === enemypoints[ind][0] && j === enemypoints[ind][1]){
                         type = "enemy";
+                        if(enemypoints[ind][3] === 1){
+                            let n = enemypoints[ind][2];
+                            if(n === 1){
+                                type="enemyrock";
+                            }
+                            else if( n === 2){
+                                type ="enemypaper";
+                            }else{
+                                type = "enemyscis";
+                            }
+                        }
                     }
                 }
 
@@ -200,7 +226,7 @@ class Game extends Component{
         let split = elem.className.split(' ');
         let i = parseInt(split[1]);
         let j = parseInt(split[2]);
-        console.log("element:" + i +" " + j);
+        //console.log("element:" + i +" " + j);
         //console.log(this.state.map);
         let map = this.state.map;
         let left = null;
@@ -225,7 +251,7 @@ class Game extends Component{
         if(bottom != null && !bottom.props.id.includes("me")) goods.push(bottom);
         if(left != null && !left.props.id.includes("me")) goods.push(left);
         if(right != null && !right.props.id.includes("me")) goods.push(right);
-        console.log(goods);
+        //console.log(goods);
         return goods;
     };
 

@@ -149,5 +149,29 @@ module.exports = {
                 let errors = {deleteteam: 'Teamname does not exist in database!'};
                 res.status(200).json({errors: errors});
             }
+        },
+
+    updateAddUserScore:
+        async function updateAddUserSscore(name) {
+            return await database.updateAddUserScore(name);
+        },
+
+    updateSubUserScore:
+        async function updateSubUserSscore(name) {
+            return await database.updateSubUserScore(name);
+        },
+
+
+    addGame:
+        async function addGame(winner,loser){
+            return (await database.addGame(winner,loser));
+        },
+
+    getUserId:
+        async function getUserId(name){
+            let id = await database.getUserId(name);
+            return id;
         }
+
+
 };

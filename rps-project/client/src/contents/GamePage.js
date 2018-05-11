@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import GameHeader from "./GameHeader";
 import './GamePageStyle.css'
 import Game from "./Game";
-import OnlinePlayers from "./OnlinePlayers";
 
 
 
@@ -18,9 +17,8 @@ class GamePage extends Component{
     render(){
         return  <div>
             <GameHeader username={this.state.username}/>
-            <div style={{marginTop: '70px', marginLeft: ' 60px'}}>
+            <div style={{marginTop: '70px'}}>
                 <Game/>
-                <OnlinePlayers/>
             </div>
         </div>
     }

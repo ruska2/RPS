@@ -11,6 +11,7 @@ const io = require('socket.io')(server, { wsEngine: 'ws' });
 
 let loggedUsers = [];
 let games = [];
+let choses = [];
 
 
 app.listen(3001,() =>  console.log("Running on localhost:3001"));
@@ -121,6 +122,73 @@ function leaveGame(name){
 
 }
 
+function moveF(move){
+    console.log("MOVEEE",move);
+    let user = move[0];
+    let oldpos = move[1];
+    let newpos = move[2];
+    let game;
+    let user1;
+    let user2;
+    for(let i = 0; i < games.length; i++){
+        if(games[i].user1 === user){
+            user1 = user;
+            user2 = games[i].user2;
+            game = games[i];
+        }
+        if(games[i].user2 === user){
+            user1 = games[i].user1;
+            user2 = user;
+            game = games[i];
+        }
+    }
+
+    let split = oldpos.split(' ');
+    let oldi = parseInt(split[1]);
+    let oldj = parseInt(split[2]);
+
+    let split2 = newpos.split(' ');
+    let newi = parseInt(split2[1]);
+    let newj = parseInt(split2[2]);
+
+    if(user1 === user){
+        console.log("user1", user1);
+        let newg = moveUser(user,game,oldi,oldj,newi,newj);
+        if(newg === "equal"){
+            //send chose
+            let m = [user,game,oldi,oldj, newi, newj,'user1'];
+            getUserSocket(user1).emit('chose', m);
+            m[6] = 'user2';
+            getUserSocket(user2).emit('chose', m);
+            return;
+        }
+        game = newg;
+        game.move = user2;
+        games[0] = game;
+        if(winChecker(game)) return;
+        getUserSocket(user1).emit('init', games[0]);
+        getUserSocket(user2).emit('init', games[0]);
+
+    }
+    else if(user2 === user){
+        console.log("user2", user2);
+        let newg = moveUser(user,game,oldi,oldj,newi,newj);
+        if(newg === "equal"){
+            let m = [user,game,oldi,oldj, newi, newj,'user1'];
+            getUserSocket(user1).emit('chose', m);
+            m[6] = 'user2';
+            getUserSocket(user2).emit('chose', m);
+            return;
+        }
+        game = newg;
+        game.move = user1;
+        games[0] = game;
+        if(winChecker(game)) return;
+        getUserSocket(user1).emit('init', games[0]);
+        getUserSocket(user2).emit('init', games[0]);
+    }
+}
+
 io.on('connection', socket => {
     console.log('User connected');
 
@@ -148,55 +216,61 @@ io.on('connection', socket => {
         //CHANGE GAME MAP AND INIT
         //DECIDER FUNCION
         //SEND BACK INIT
-        let user = move[0];
-        let oldpos = move[1];
-        let newpos = move[2];
-        let game;
-        let user1;
-        let user2;
-        for(let i = 0; i < games.length; i++){
-            if(games[i].user1 === user){
-                user1 = user;
-                user2 = games[i].user2;
-                game = games[i];
+        moveF(move);
+    });
+
+    socket.on('chose', chose =>{
+        //console.log("chose:" ,chose);
+        let game = getUserInGame(chose[7]);
+        let user = "";
+        if(chose[6] === 'user1'){
+            user = game.user2;
+        }else{
+            user = game.user1;
+        }
+
+        console.log("sender:", chose[7], "other:", user);
+        let c = getUserChose(user);
+       // console.log("c:",c);
+        if(c === undefined){
+            choses.push([chose[7], chose[6], chose]);
+        }else{
+            console.log("looog",chose[6],c[1]);
+            if(c[1] === 'user1'){
+                game.user1points = c[2][1].user1points;
+                console.log("c user 1")
+            }else{
+                game.user2points = c[2][1].user2points;
+                console.log("c user 2")
             }
-            if(games[i].user2 === user){
-                user1 = games[i].user1;
-                user2 = user;
-                game = games[i];
+
+            if(chose[6] === 'user1'){
+                game.user1points = chose[1].user1points;
+                console.log("cchose user 1")
             }
-        }
+            else{
+                game.user2points = chose[1].user2points;
+                console.log("chose user 2")
+            }
+            console.log(chose[1]);
+            console.log("user1",game.user1points);
+            console.log("user2",game.user2points);
 
-        let split = oldpos.split(' ');
-        let oldi = parseInt(split[1]);
-        let oldj = parseInt(split[2]);
+            let i = getUserChoseIndex(user);
+            choses.splice(i,1);
 
-        let split2 = newpos.split(' ');
-        let newi = parseInt(split2[1]);
-        let newj = parseInt(split2[2]);
-
-        if(user1 === user){
-            console.log("user1", user1);
-            let newg = moveUser(user,game,oldi,oldj,newi,newj);
-            game = newg;
-            game.move = user2;
-            games[0] = game;
-            if(winChecker(game)) return;
-            getUserSocket(user1).emit('init', games[0]);
-            getUserSocket(user2).emit('init', games[0]);
+            let j = getGameIndex(user);
+            choses[j] = game;
+            moveF([chose[0],"span " + chose[2] +" "+chose[3], "span " + chose[4] + " " + chose[5]]);
 
         }
-        else if(user2 === user){
-            console.log("user2", user2);
-            let newg = moveUser(user,game,oldi,oldj,newi,newj);
-            game = newg;
-            game.move = user1;
-            games[0] = game;
-            if(winChecker(game)) return;
-            getUserSocket(user1).emit('init', games[0]);
-            getUserSocket(user2).emit('init', games[0]);
-        }
-        console.log(game);
+        //console.log(choses);
+
+
+
+
+
+
     });
 
 });
@@ -237,7 +311,10 @@ function moveUser(user,game,oldi,oldj,newi,newj){
             for(let j = 0; j < othermap.length; j++){
                 if(othermap[j][0] === newi && othermap[j][1] === newj){
                     let dc = decider(gamemap[i][2],othermap[j][2]);
-                    if(dc === gamemap[i][2]){
+                    if(dc === "equal"){
+                        return "equal";
+                    }
+                    if(dc === 1){
                         othermap.splice(j,1);
                         gamemap[i][0] = newi;
                         gamemap[i][1] = newj;
@@ -294,30 +371,26 @@ function generateNewGame(user1,user2) {
 }
 
 function decider(u1,u2){
-    let rnd = Math.floor((Math.random() * 2) + 0);
     if(u1 === u2){
-        if(rnd === 0){
-            return  u1;
-        }
-        return u2;
+       return "equal";
     }
 
     if(u1 === 1 && u2 === 2){
         return 2;
     }
     if(u1 === 2 && u2 === 1){
-        return 2;
+        return 1;
     }
     if(u1 === 0 && u2 === 2){
-        return 0;
+        return 1;
     }
     if(u1 === 2 && u2 === 0){
-        return 0;
+        return 2;
     }if(u1 === 1 && u2 === 0){
         return 1;
     }
     if(u1 === 0 && u2 === 1){
-        return 1;
+        return 2;
     }
 }
 
@@ -361,4 +434,23 @@ function getGameIndex(name){
         }
     }
     return null;
+}
+
+function getUserChose(name){
+    for(let i = 0; i < choses.length; i++){
+        //console.log(choses[i][0]);
+        //console.log(name);
+        if(choses[i][0] === name){
+            return choses[i];
+        }
+    }
+}
+
+function getUserChoseIndex(name){
+    for(let i = 0; i < choses.length; i++){
+       // console.log(choses[i]);
+        if(choses[i][0] === name){
+            return i;
+        }
+    }
 }

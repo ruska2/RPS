@@ -111,3 +111,39 @@
     color: #415f7c;
     text-decoration: none;
 }
+
+#chose{
+    position: absolute;
+    top: 400px;
+    left: 275px;
+    background-color: #737373;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+#rock{
+    float: left;
+}
+
+#rock:hover{
+    background-color: #2e6da4;
+    cursor: pointer;
+}
+
+#paper:hover{
+    background-color: #2e6da4;
+    cursor: pointer;
+}
+
+#scissors:hover{
+    background-color: #2e6da4;;
+    cursor: pointer;
+}
+
+#paper{
+    float: left;
+}
+
+#scissors{
+    float: left;
+}
+

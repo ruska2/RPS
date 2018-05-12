@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import openSocket from 'socket.io-client';
 import Login from "../auth/Login";
+import Rock from "../images/rock.png";
+import Paper from "../images/paper.png";
+import Scissors from "../images/scissor.png";
 
 class Game extends Component{
 
@@ -13,7 +16,8 @@ class Game extends Component{
             pos: null,
             enemypoints: null,
             map: null,
-            move: null
+            move: null,
+            chose: null
         };
     }
 
@@ -35,9 +39,76 @@ class Game extends Component{
                         {this.state.button}
                     </div>
             </div>
+
+            {this.state.chose !== null && <div id = "chose">
+                <img id="rock" src={Rock} alt="rock" onClick={this.clickImg}/>
+                <img id="paper" src={Paper} alt="paper" onClick={this.clickImg}/>
+                <img id="scissors" src={Scissors} alt="scissors" onClick={this.clickImg}/>
+            </div>}
         </div>
 
     }
+
+    clickImg = (e) =>{
+
+            if(this.state.chose[0] === Login.staticProperty.username){
+                let changei = this.state.chose[2];
+                let changej = this.state.chose[3];
+                if(this.state.chose[1].user1 === Login.staticProperty.username){
+                    //change user1points to new;
+                    let p = this.state.chose[1].user1points;
+                    for(let i = 0; i < p.length; i++){
+                        if(p[i][0] === changei && p[i][1] === changej){
+                            p[i][2] = this.getValue(e.target.id);
+                        }
+                    }
+                    this.state.chose[1].user1points = p;
+                }else{
+                    let p = this.state.chose[1].user2points;
+                    for(let i = 0; i < p.length; i++){
+                        if(p[i][0] === changei && p[i][1] === changej){
+                            p[i][2] = this.getValue(e.target.id);
+                        }
+                    }
+                    this.state.chose[1].user2points = p;
+                }
+            }else{
+                let changei = this.state.chose[4];
+                let changej = this.state.chose[5];
+                if(this.state.chose[1].user1 === Login.staticProperty.username){
+                    //change user1points to new;
+                    let p = this.state.chose[1].user1points;
+                    for(let i = 0; i < p.length; i++){
+                        if(p[i][0] === changei && p[i][1] === changej){
+                            p[i][2] = this.getValue(e.target.id);
+                        }
+                    }
+                    this.state.chose[1].user1points = p;
+                }else{
+                    let p = this.state.chose[1].user2points;
+                    for(let i = 0; i < p.length; i++){
+                        if(p[i][0] === changei && p[i][1] === changej){
+                            p[i][2] = this.getValue(e.target.id);
+                        }
+                    }
+                    this.state.chose[1].user2points = p;
+                }
+            }
+            let x = this.state.chose;
+            x.push(Login.staticProperty.username);
+            this.state.socket.emit('chose',x);
+
+        this.setState({
+            chose: null
+        })
+    };
+
+    getValue = (value) =>{
+        console.log(value);
+      if(value === "rock") return 1;
+      if(value === "paper") return 2;
+      if(value === "scissors") return 0;
+    };
 
     onJoin = () => {
         if(this.state.button === "Join Game"){
@@ -53,9 +124,11 @@ class Game extends Component{
             this.state.socket.emit('logout',Login.staticProperty.username);
             this.setState({
                 button: "Join Game",
-                socket: null
+                socket: null,
+                chose: null
             });
             document.body.style.cursor = "auto";
+
         }
     };
 
@@ -98,7 +171,12 @@ class Game extends Component{
                   as[i].style.pointerEvents = "all";
               }
             document.body.style.cursor = "auto"
-      })
+      });
+      socket.on('chose', data => {
+          this.setState({
+              chose: data
+          })
+      });
     };
 
     drawMap = (init) => {

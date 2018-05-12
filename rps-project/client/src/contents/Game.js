@@ -29,6 +29,7 @@ class Game extends Component{
 
     render(){
         return <div id = "gameholder">
+            <div id="mobilegame"> For playing change to desktop version!</div>
             <div id="game">
                 {this.state.map != null && this.state.map}
             </div>

@@ -3,16 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import axios from 'axios';
-import { connect } from 'react-redux'
-
-
-const store = store => {
-    return {
-        counter: store.counter
-    }
-};
-
-export default connect(store)(App)
 
 axios.post('/getlogged',{msg: 'getlogged'}).then(
     (response) => {

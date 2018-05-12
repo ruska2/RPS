@@ -3,15 +3,10 @@ import './App.css';
 import Footer from "./Footer";
 import Content from "./Content";
 import {BrowserRouter as Router} from 'react-router-dom';
-import thunk from 'redux-thunk';
-import {createStore, applyMiddleware} from 'redux';
-import Provider from "react-redux/src/components/Provider";
 import Login from "./auth/Login";
 import GameContent from "./GameContent";
 
-const store = createStore(
-    (state = {}) => state, applyMiddleware(thunk)
-);
+
 
 class App extends Component {
 
@@ -33,7 +28,6 @@ class App extends Component {
     render() {
         const logged = this.state.logged !== 'false';
         return (
-            <Provider store={store}>
                 <Router>
                     <div className="App">
                         <div id="contentorgameholder">
@@ -43,7 +37,6 @@ class App extends Component {
                         <Footer/>
                     </div>
                 </Router>
-            </Provider>
         );
     }
 }

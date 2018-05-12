@@ -110,12 +110,15 @@ function leaveGame(name){
             loggedUsers[getUserIndex(game.user2)][1].emit('win', "You win! +50 points");
             loggedUsers.splice(getUserIndex(game.user2),1);
             games.splice(getGameIndex(name),1);
+            handlers.addGame(game.user2,game.user1);
         }else if(game.user2 === name){
             loggedUsers[getUserIndex(game.user1)][1].emit('win', "You win! +50 points");
             loggedUsers.splice(getUserIndex(game.user1),1);
             games.splice(getGameIndex(name),1);
+            handlers.addGame(game.user1,game.user2);
         }
         loggedUsers.splice(getUserIndex(name),1);
+
     }else{
         loggedUsers.splice(getUserIndex(name),1);
     }

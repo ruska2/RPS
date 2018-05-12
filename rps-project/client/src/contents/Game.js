@@ -119,6 +119,10 @@ class Game extends Component{
                 socket: s
             });
             document.body.style.cursor = "wait";
+            let as = document.getElementsByTagName("a");
+            for(let i = 0; i < as.length; i++){
+                as[i].style.pointerEvents = "none";
+            }
             this.listener(s);
         }else{
             this.state.socket.emit('logout',Login.staticProperty.username);
@@ -127,6 +131,10 @@ class Game extends Component{
                 socket: null,
                 chose: null
             });
+            let as = document.getElementsByTagName("a");
+            for(let i = 0; i < as.length; i++){
+                as[i].style.pointerEvents = "all";
+            }
             document.body.style.cursor = "auto";
 
         }
@@ -147,8 +155,10 @@ class Game extends Component{
               pos: null,
               enemypoints: null,
               map: null,
-              move: null
+              move: null,
+              button: "Join Game"
           });
+
           document.body.style.cursor = "auto";
           let as = document.getElementsByTagName("a");
           for(let i = 0; i < as.length; i++){

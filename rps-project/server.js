@@ -39,7 +39,7 @@ app.post('/register', (req,res) => {
 
 app.post('/getlogged', (req,res) => {
     let name = req.session.username;
-    let i = getUserIndex(name);
+    let i = getUserInGame(name);
     if(i !== null){
         leaveGame(name);
     }
@@ -49,7 +49,7 @@ app.post('/getlogged', (req,res) => {
 app.post('/remlogged', (req,res) => {
     const data = req.body;
     const name = data.username;
-    let i = getUserIndex(name);
+    let i = getUserInGame(name);
     if(i !== null){
         leaveGame(name);
     }
@@ -199,6 +199,20 @@ io.on('connection', socket => {
 
         socket.on('logout', (name) => {
             leaveGame(name);
+        });
+
+        socket.on('disconnect', asd =>{
+            console.log("disconnect");
+            let name = null;
+            console.log("sadasdsaddddddddddd", socket.id);
+            for(let i = 0; i < loggedUsers.length; i++){
+                console.log("asdddddddddddddddddddddddddddd",loggedUsers[i][1].id);
+                if(loggedUsers[i][1] === socket){
+                    name = loggedUsers[i][0];
+                    leaveGame(name);
+                }
+
+            }
         });
 
         socket.on('login', name => {

@@ -111,11 +111,16 @@ function leaveGame(name){
             loggedUsers.splice(getUserIndex(game.user2),1);
             games.splice(getGameIndex(name),1);
             handlers.addGame(game.user2,game.user1);
+            handlers.updateAddUserScore(game.user2);
+            handlers.updateSubUserScore(game.user1);
+
         }else if(game.user2 === name){
             loggedUsers[getUserIndex(game.user1)][1].emit('win', "You win! +50 points");
             loggedUsers.splice(getUserIndex(game.user1),1);
             games.splice(getGameIndex(name),1);
             handlers.addGame(game.user1,game.user2);
+            handlers.updateAddUserScore(game.user1);
+            handlers.updateSubUserScore(game.user2);
         }
         loggedUsers.splice(getUserIndex(name),1);
 
@@ -299,6 +304,10 @@ function winChecker(game){
         handlers.addGame(game.user2,game.user1);
         handlers.updateAddUserScore(game.user2);
         handlers.updateSubUserScore(game.user1);
+        let i = getGameIndex(game.user1);
+        games.splice(i,1);
+        loggedUsers.splice(getUserIndex(game.user1));
+        loggedUsers.splice(getUserIndex(game.user2));
         return true;
     }
     if(game.user2points.length === 0){
@@ -307,6 +316,10 @@ function winChecker(game){
         handlers.addGame(game.user1,game.user2);
         handlers.updateAddUserScore(game.user1);
         handlers.updateSubUserScore(game.user2);
+        let i = getGameIndex(game.user1);
+        games.splice(i,1);
+        loggedUsers.splice(getUserIndex(game.user1));
+        loggedUsers.splice(getUserIndex(game.user2));
         return true;
     }
 

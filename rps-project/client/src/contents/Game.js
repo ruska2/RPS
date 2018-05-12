@@ -165,6 +165,7 @@ class Game extends Component{
               as[i].style.pointerEvents = "all";
           }
           alert(move);
+          window.location.reload();
       });
       socket.on('win', move =>{
             alert(move);
@@ -180,13 +181,15 @@ class Game extends Component{
               for(let i = 0; i < as.length; i++){
                   as[i].style.pointerEvents = "all";
               }
-            document.body.style.cursor = "auto"
+            document.body.style.cursor = "auto";
+            window.location.reload();
       });
       socket.on('chose', data => {
           this.setState({
               chose: data
           })
       });
+
     };
 
     drawMap = (init) => {

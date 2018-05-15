@@ -113,7 +113,7 @@ class Game extends Component{
 
     onJoin = () => {
         if(this.state.button === "Join Game"){
-            const s = openSocket('http://192.168.43.188:4000');
+            const s = openSocket('http://158.195.198.83:4000');
             s.emit('login',Login.staticProperty.username);
             this.setState({
                 button: "Leave Game",

@@ -131,7 +131,7 @@ function leaveGame(name){
 }
 
 function moveF(move){
-    console.log("MOVEEE",move);
+    //console.log("MOVEEE",move);
     let user = move[0];
     let oldpos = move[1];
     let newpos = move[2];
@@ -151,7 +151,7 @@ function moveF(move){
         }
     }
 
-    console.log(user,games);
+   // console.log(user,games);
 
     let split = oldpos.split(' ');
     let oldi = parseInt(split[1]);
@@ -162,7 +162,7 @@ function moveF(move){
     let newj = parseInt(split2[2]);
 
     if(user1 === user){
-        console.log("user1", user1);
+       // console.log("user1", user1);
         let newg = moveUser(user,game,oldi,oldj,newi,newj);
         if(newg === "equal"){
             //send chose
@@ -181,7 +181,7 @@ function moveF(move){
 
     }
     else if(user2 === user){
-        console.log("user2", user2);
+        //console.log("user2", user2);
         let newg = moveUser(user,game,oldi,oldj,newi,newj);
         if(newg === "equal"){
             let m = [user,game,oldi,oldj, newi, newj,'user1'];
@@ -211,7 +211,7 @@ io.on('connection', socket => {
             let name = null;
             console.log("sadasdsaddddddddddd", socket.id);
             for(let i = 0; i < loggedUsers.length; i++){
-                console.log("asdddddddddddddddddddddddddddd",loggedUsers[i][1].id);
+                //console.log("asdddddddddddddddddddddddddddd",loggedUsers[i][1].id);
                 if(loggedUsers[i][1] === socket){
                     name = loggedUsers[i][0];
                     leaveGame(name);
@@ -253,42 +253,42 @@ io.on('connection', socket => {
                 user = game.user1;
             }
 
-            console.log("sender:", chose[7], "other:", user);
+            //console.log("sender:", chose[7], "other:", user);
             let c = getUserChose(user);
             // console.log("c:",c);
             if (c === undefined) {
                 choses.push([chose[7], chose[6], chose]);
             } else {
-                console.log("looog", chose[6], c[1]);
+                //console.log("looog", chose[6], c[1]);
                 if (c[1] === 'user1') {
                     game.user1points = c[2][1].user1points;
-                    console.log("c user 1")
+                    //console.log("c user 1")
                 } else {
                     game.user2points = c[2][1].user2points;
-                    console.log("c user 2")
+                    //console.log("c user 2")
                 }
 
                 if (chose[6] === 'user1') {
                     game.user1points = chose[1].user1points;
-                    console.log("cchose user 1")
+                    //console.log("cchose user 1")
                 }
                 else {
                     game.user2points = chose[1].user2points;
-                    console.log("chose user 2")
+                    //console.log("chose user 2")
                 }
-                console.log(chose[1]);
-                console.log("user1", game.user1points);
-                console.log("user2", game.user2points);
+                //console.log(chose[1]);
+               // console.log("user1", game.user1points);
+                //console.log("user2", game.user2points);
 
                 let i = getUserChoseIndex(user);
                 choses.splice(i, 1);
 
                 let j = getGameIndex(user);
-                choses[j] = game;
+                games[j] = game;
                 moveF([chose[0], "span " + chose[2] + " " + chose[3], "span " + chose[4] + " " + chose[5]]);
 
             }
-            //console.log(choses);
+            console.log(choses);
 
 
         });

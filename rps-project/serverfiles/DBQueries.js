@@ -117,6 +117,8 @@ module.exports ={
             let sql = "UPDATE \"user\" SET score =" + score + " WHERE name='"+ name +"'";
             await pool.query(sql);
             let team = await this.getUserTeam(name);
+            console.log("asdddddddddddddddddddd",team.length);
+            if(team.length === 0) return;
             let teamscore = await this.getTeamScore(team);
             teamscore += 50;
             let sql2 = "UPDATE team SET score =" + teamscore + " WHERE name='" + name+"'";
@@ -127,11 +129,19 @@ module.exports ={
         async function updateSubUserScore(name){
             let score = await this.getUserScore(name);
             score -= 50;
+            if(score < 0){
+                score = 0;
+            }
             let sql = "UPDATE \"user\" SET score =" + score + " WHERE name='"+ name +"'";
             await pool.query(sql);
             let team = await this.getUserTeam(name);
+            console.log("asdsadsad", team);
+            if(team.length === 0 ) return;
             let teamscore = await this.getTeamScore(team);
             teamscore -= 50;
+            if(teamscore < 0){
+                teamscore = 0;
+            }
             let sql2 = "UPDATE team SET score =" + teamscore + " WHERE name='" + name+"'";
             return await pool.query(sql2);
         },

@@ -17,7 +17,8 @@ class Game extends Component{
             enemypoints: null,
             map: null,
             move: null,
-            chose: null
+            chose: null,
+            enemy: null
         };
     }
 
@@ -30,9 +31,11 @@ class Game extends Component{
     render(){
         return <div id = "gameholder">
             <div id="mobilegame"> For playing change to desktop version!</div>
+            <div id = "names">{(this.state.pos && this.state.pos == "down") ? "You" : this.state.enemy }</div>
             <div id="game">
                 {this.state.map != null && this.state.map}
             </div>
+            <div id ="names">{(this.state.pos && this.state.pos == "up") ? "You" : this.state.enemy }</div>
             <div id="turn">{this.state.move !== null && this.state.move === Login.staticProperty.username && "Your turn!"}
                             {this.state.move !== null && this.state.move !== Login.staticProperty.username && "Enemy turn!"}</div>
             <div id="joinLeave">
@@ -157,6 +160,7 @@ class Game extends Component{
               enemypoints: null,
               map: null,
               move: null,
+              enemy: null,
               button: "Join Game"
           });
 
@@ -176,7 +180,8 @@ class Game extends Component{
                 pos: null,
                 enemypoints: null,
                 map: null,
-                move: null
+                move: null,
+                enemy: null
             });
               let as = document.getElementsByTagName("a");
               for(let i = 0; i < as.length; i++){
@@ -198,14 +203,17 @@ class Game extends Component{
         let mypoints = [];
         let enemypoints = [];
         let pos;
+        let enemy;
         if(init.user1 === Login.staticProperty.username){
             mypoints = init.user1points;
             enemypoints = init.user2points;
             pos = "down";
+            enemy = init.user2;
         }else{
             mypoints = init.user2points;
             enemypoints = init.user1points;
-            pos = " up";
+            pos = "up";
+            enemy = init.user1;
         }
         const spots = this.draw(mypoints,enemypoints);
         this.setState({
@@ -213,7 +221,8 @@ class Game extends Component{
             pos: pos,
             enemypoints: enemypoints,
             map: spots,
-            move: init.move
+            move: init.move,
+            enemy: enemy
         });
 
     };

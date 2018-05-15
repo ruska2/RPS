@@ -62,7 +62,7 @@ class GameHeader extends Component{
                     <div id="titlediv">
                         <img id='funnyimg'  src={TitleImage} alt='title-img'/>
                     </div>
-                    <div id='usernamediv'>
+                    <div id='usernamediv' style={{width: this.state.username.length * 8 + "px"}}>
                         <div id='usernamedisplay'>{this.state.username}</div>
                     </div>
                     {this.state.username !== 'admin123' && <div id='scorediv'>

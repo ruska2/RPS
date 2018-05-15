@@ -31,7 +31,7 @@ class Statistics extends Component{
             <div id="wrapper">
                 <h3 id='pos'>
                     Overall position: {this.state.position}.<br/>
-                    Position in team: {this.state.posinteam ? this.state.posinteam : "no team"} {this.state.posinteam? "." : ''}
+                    Position in team: {this.state.posinteam ? this.state.posinteam : "no team"}{this.state.posinteam ? "." : ''}
                 </h3>
                 <Table data={this.state.topTen} title='Top 10 players' type={1}/>
                 <Table data={this.state.lastTenMatches} title='Last 20 matches' type={2}/>
@@ -47,7 +47,7 @@ class Statistics extends Component{
                 this.setState({topTen: response.data.topten,
                     lastTenMatches: response.data.lastten,
                     topTeams: response.data.topteams,
-                    position: response.data.position,
+                    position: response.data.position - 1,
                     posinteam: response.data.posinteam,
                     toptenInTeam: response.data.topteninteam
                 });

@@ -99,13 +99,13 @@ server.listen(4000, () => console.log(`Listening on port 4000`));
 
 function leaveGame(name){
     console.log('user disconnected:' + name);
-    console.log(loggedUsers);
+    //console.log(loggedUsers);
     let ingame = getUserInGame(name);
     if(ingame != null){
-        console.log("leavefromgame");
+        //console.log("leavefromgame");
         loggedUsers[getUserIndex(name)][1].emit('lose', "You lost! -50 points");
         let game = getUserInGame(name);
-        console.log(game.user1 , game.user2);
+        //console.log(game.user1 , game.user2);
         if(game.user1 === name){
             loggedUsers[getUserIndex(game.user2)][1].emit('win', "You win! +50 points");
             loggedUsers.splice(getUserIndex(game.user2),1);
@@ -207,9 +207,9 @@ io.on('connection', socket => {
         });
 
         socket.on('disconnect', asd =>{
-            console.log("disconnect");
+            //console.log("disconnect");
             let name = null;
-            console.log("sadasdsaddddddddddd", socket.id);
+            //console.log("sadasdsaddddddddddd", socket.id);
             for(let i = 0; i < loggedUsers.length; i++){
                 //console.log("asdddddddddddddddddddddddddddd",loggedUsers[i][1].id);
                 if(loggedUsers[i][1] === socket){
@@ -288,7 +288,7 @@ io.on('connection', socket => {
                 moveF([chose[0], "span " + chose[2] + " " + chose[3], "span " + chose[4] + " " + chose[5]]);
 
             }
-            console.log(choses);
+            //console.log(choses);
 
 
         });

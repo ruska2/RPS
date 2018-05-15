@@ -1,17 +1,21 @@
 let database = require('./DBQueries');
-let isEmpty = require('lodash.isempty');
-let validator = require('validator');
 let crypto = require('crypto');
+
+
+function isEmpty(array){
+    if(Object.keys(array).length) return true;
+    return false;
+}
 
 module.exports = {
     validateLoginInput:
         async function validateLoginInput(data) {
             let errors = {};
 
-            if (validator.isEmpty(data.username)) {
+            if (isEmpty(data.username)) {
                 errors.username = 'This field is required!';
             }
-            if (validator.isEmpty(data.password)) {
+            if (isEmpty(data.password)) {
                 errors.password = 'This field is required!';
             }
             let res =  await checkIfUserIsRegistredAndPasswordIsCorrect(data.username, data.password);

@@ -3,7 +3,12 @@ let crypto = require('crypto');
 
 
 function isEmpty(array){
-    if(Object.keys(array).length) return true;
+    if(Object.keys(array).length === 0) return true;
+    return false;
+}
+
+function isEmptyStr(rts){
+    if(rts.length === 0) return true;
     return false;
 }
 
@@ -12,10 +17,10 @@ module.exports = {
         async function validateLoginInput(data) {
             let errors = {};
 
-            if (isEmpty(data.username)) {
+            if (isEmptyStr(data.username)) {
                 errors.username = 'This field is required!';
             }
-            if (isEmpty(data.password)) {
+            if (isEmptyStr(data.password)) {
                 errors.password = 'This field is required!';
             }
             let res =  await checkIfUserIsRegistredAndPasswordIsCorrect(data.username, data.password);
